@@ -1,0 +1,25 @@
+
+@model Tarea1.Models.p2Request
+<h1>Ejercicio #2</h1>
+<p>
+    2- Realizar una aplicación web utilizando .net core mvc, que solicite a través de un formulario al usuario los valores de una ecuación de segundo grado y que a través de la formula general determine las soluciones de la misma.
+</p>
+
+@using(Html.BeginForm("p2", "Home", FormMethod.Post, new {})){
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new{@class="aler-danger"})
+
+    <div class="form-group">
+        @Html.LabelFor(x=>Model.a,new{})
+        @Html.TextBoxFor(x=>Model.a,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.a,"*",new{@class="alert-danger"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x=>Model.b,new{})
+        @Html.TextBoxFor(x=>Model.b,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.b,"*",new{@class="alert-danger"})
+    </div>
+        @Html.LabelFor(x=>Model.c,new{})
+        @Html.TextBoxFor(x=>Model.c,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.c,"*",new{@class="alert-danger"})
+}

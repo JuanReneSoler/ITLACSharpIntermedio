@@ -1,0 +1,21 @@
+
+@model Tarea1.Models.p1Request
+<h1>Ejercicio #1</h1>
+<p>
+    1- Realizar una aplicación web utilizando .net core mvc, que solicite a través de un formulario al usuario 
+    su día y mes de nacimiento y que según esa información determine su signo zodiacal.
+</p>
+
+@using(Html.BeginForm("p1", "Home", FormMethod.Post, new {@class="p1Form"})){
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("",new{@class="alert-danger"})
+    <div class="form-group">
+        @Html.LabelFor(x=>Model.fechaNacimiento, new {});
+        @Html.TextBoxFor(x=>Model.fechaNacimiento, new{@class="form-control", @type="date"})
+        @Html.ValidationMessageFor(x=>Model.fechaNacimiento, "*",new{@class="alert-danger"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x=>Model.Result,new{});
+    </div>
+    <buton type="button" class="btn btn-success" onclick="submitForm('p1Form')">Calcular</buton>
+}
