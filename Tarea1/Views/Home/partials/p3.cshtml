@@ -1,8 +1,28 @@
-
-
 <h1>Ejercicio #3</h1>
 <p>
-    3- Realizar una aplicación web utilizando .net core mvc, que imprima en html una tabla de multiplicar  del 1 al 12, utilizando razor.
+    3- Realizar una aplicación web utilizando .net core mvc, que imprima en html una tabla de multiplicar  
+    del 1 al 12, utilizando razor.
 </p>
 
+@{
+    var c = 1;
+}
+<div class="row">
+    @while (c<=12)
+    {
+        <div class="card col-3" style="width:200px;">
+            <div class="card-header">Tabla del @c</div>
+            <ul class="list-group list-group-flush">
+                @{
+                    var c2 = 1;
+                }
+                @while(c2<=12){
+                    <li class="list-group-item">@(c) x @(c2) = @(c*c2)</li>
+                    c2++;
+                }
+            </ul>
+        </div>
+        c++;
+    }
+</div>
 

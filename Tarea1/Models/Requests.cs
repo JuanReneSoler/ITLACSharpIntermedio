@@ -1,40 +1,39 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-
 namespace Tarea1.Models
 {
-    public class p1Request{
+    public class ListaSignosModel{
+        public string Nombre { get; set; }
+        public System.DateTime FechaInicio { get; set; }
+        public System.DateTime FechaFin { get; set; }
+    }
 
-        [Required()]
+    public class p1Request
+    {
+        [Required]
         [DisplayName("Fecha de Nacimiento")]
-        [DataType(DataType.DateTime)]
         public System.DateTime fechaNacimiento { get; set; }
 
-        public string Result { get; set; }
+        [DisplayName("Resultado:")]
+        public string resultado { get; set; }
     }
 
     public class p2Request{
+        [Required]
+        [DisplayName("Valor de A:")]
+        public double a { get; set; }
+        
+        [Required]
+        [DisplayName("Valor de B:")]
+        public double b { get; set; }
 
         [Required]
-        [DisplayName("A")]
-        public decimal a { get; set; }
+        [DisplayName("Valor de C:")]
+        public double c { get; set; }
 
-        [Required]
-        [DisplayName("B")]
-        public decimal b { get; set; }
-
-        [Required]
-        [DisplayName("C")]
-        public decimal c { get; set; }
+        [DisplayName("Resultado:")]
+        public string resultado { get; set; }
     }
 }
-
-
-
-
-
-
-
-
 

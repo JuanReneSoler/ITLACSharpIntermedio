@@ -1,36 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Tarea 1, ITLA";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-    <div class="card col-4" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-            <li onclick="AddPartial('/home/p1')" class="list-group-item">Primer ejercicio (click para ver)</li>
-            <li onclick="AddPartial('/home/p2')" class="list-group-item">Segundo ejercicio (click para ver)</li>
-            <li onclick="AddPartial('/home/p3')" class="list-group-item">Tercer ejercicio (click para ver)</li>
-        </ul>
-    </div>
-    <div id="paginas" class="col-8">
-        @{
-            Html.RenderPartial("~/Views/Home/partials/p1.cshtml");
-        }
+<div class="">
+    @* <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+
+    <div class="row">
+        <div class="card col-4" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li onclick="AddPartial('/home/p1')" class="list-group-item">Primer Ejercicio</li>
+                <li onclick="AddPartial('/home/p2')" class="list-group-item">Segundo Ejercicio</li>
+                <li onclick="AddPartial('/home/p3')" class="list-group-item">Tercer Ejercicio</li>
+            </ul>
+        </div>
+        <div class="col-8" id="paginas">
+            @{
+                Html.RenderPartial("~/Views/Home/partials/p1.cshtml");
+            }
+        </div>
     </div>
 </div>
 <script>
-    
-    function AddPartial(_url){
-        $.get(_url).done(function(_html){
-            $("#paginas").html(_html);
-        }).fail(function(error){
-            alert(error.statusText);
-        });
+    async function AddPartial(url, model){
+        return await $.get(url, model)
+            .done(function(result){
+                $("#paginas").html(result);
+            }).fail(function(error){
+                alert(error.statusText);
+            });
     }
 
-    function submitForm(idForm){
-        let form = $("#"+idForm);
-        $.post(form.attr("action"), form.serialize()).done(function(_html){
-            $("#paginas").html(_html);
-        }).fail(function(error){
+    async function SubmitForm(e, form){
+        e.preventDefault();
+        return await $.post($(form).attr("action"),$(form).serialize())
+        .done(function(result){
+            $("#paginas").html(result);
+        })
+        .fail(function(error){
             alert(error.statusText);
         });
     }

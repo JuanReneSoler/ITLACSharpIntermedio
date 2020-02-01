@@ -1,36 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\ITLA\\CSharpIntermedio\\Tarea1\\Tarea1.csproj": {}
+    "C:\\Users\\Juan Rene Soler Siri\\Projects\\ITLA\\CSharp\\Intermedio\\Tarea1\\Tarea1.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\ITLA\\CSharpIntermedio\\Tarea1\\Tarea1.csproj": {
+    "C:\\Users\\Juan Rene Soler Siri\\Projects\\ITLA\\CSharp\\Intermedio\\Tarea1\\Tarea1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ITLA\\CSharpIntermedio\\Tarea1\\Tarea1.csproj",
+        "projectUniqueName": "C:\\Users\\Juan Rene Soler Siri\\Projects\\ITLA\\CSharp\\Intermedio\\Tarea1\\Tarea1.csproj",
         "projectName": "Tarea1",
-        "projectPath": "C:\\Projects\\ITLA\\CSharpIntermedio\\Tarea1\\Tarea1.csproj",
-        "packagesPath": "C:\\Users\\jrsoler\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ITLA\\CSharpIntermedio\\Tarea1\\obj\\",
+        "projectPath": "C:\\Users\\Juan Rene Soler Siri\\Projects\\ITLA\\CSharp\\Intermedio\\Tarea1\\Tarea1.csproj",
+        "packagesPath": "C:\\Users\\Juan Rene Soler Siri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Juan Rene Soler Siri\\Projects\\ITLA\\CSharp\\Intermedio\\Tarea1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jrsoler\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+          "C:\\Users\\Juan Rene Soler Siri\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "netcoreapp2.2": {
             "projectReferences": {}
           }
         },
@@ -41,26 +37,31 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
+        "netcoreapp2.2": {
+          "dependencies": {
             "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.NETCore.App": {
-              "privateAssets": "all"
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
         }
       }
     }
