@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    Html.RenderPartial("~/Views/Shared/Breadcrumb.cshtml");
+}
+
+<div class="">
+    @if(ViewData["Buttons"] != null){
+        var list = ViewData["Buttons"] as List<Tareas.Models.HomebuttonsModel>;
+        foreach (var item in list)
+        {
+            <a class="btn btn-primary btn-lg btn-block" href='/@(item.ActionName)/Index'>@item.Text</a>
+        }
+    }
+</div>

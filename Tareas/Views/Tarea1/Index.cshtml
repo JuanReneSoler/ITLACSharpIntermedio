@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    Html.RenderPartial("~/Views/Shared/Breadcrumb.cshtml");
+}
+
+<div class="">
+    @* <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+
+    <div class="row">
+        <div class="card col-4" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li onclick="AddPartial('/tarea1/p1')" class="list-group-item">Primer Ejercicio</li>
+                <li onclick="AddPartial('/tarea1/p2')" class="list-group-item">Segundo Ejercicio</li>
+                <li onclick="AddPartial('/tarea1/p3')" class="list-group-item">Tercer Ejercicio</li>
+            </ul>
+        </div>
+        <div class="col-8" id="paginas">
+            @{
+                Html.RenderPartial("~/Views/Tarea1/partials/p1.cshtml");
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function AddPartial(url, model){
+        return $.get(url, model)
+            .done(function(result){
+                $("#paginas").html(result);
+            }).fail(function(error){
+                alert(error.statusText);
+            });
+    }
+
+    function SubmitForm(e, form){
+        e.preventDefault();
+        return $.post($(form).attr("action"),$(form).serialize())
+        .done(function(result){
+            $("#paginas").html(result);
+        })
+        .fail(function(error){
+            alert(error.statusText);
+        });
+    }
+</script>
