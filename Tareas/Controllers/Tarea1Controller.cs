@@ -32,9 +32,9 @@ namespace Tareas.Controllers
         }
         
         public IActionResult Index(){
-            ViewData["Route"] = new List<string>{
-                "Home",
-                "Tarea1"
+            ViewData["Route"] = new List<HomebuttonsModel>{
+                new HomebuttonsModel{Text="Home", ActionName = "Home"},
+                new HomebuttonsModel{Text = "Tarea 1", ActionName="Tarea1"}
             };
             return View();
         }

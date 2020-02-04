@@ -3,14 +3,14 @@
   <ol class="breadcrumb">
     <!--<li class="breadcrumb-item"><a href="/home/index">Home</a></li>-->
     @if(ViewData["Route"] != null){
-        var list = ViewData["Route"] as List<string>;
+        var list = ViewData["Route"] as List<HomebuttonsModel>;
         foreach (var item in list)
         {
             if(item.Equals(list.Last())){
-                <li class="breadcrumb-item active" aria-current="page">@item</li>
+                <li class="breadcrumb-item active" aria-current="page">@item.Text</li>
                 break;
             }
-            <li class="breadcrumb-item"><a href="/@(item)/index">@item</a></li>
+            <li class="breadcrumb-item"><a href="/@(item.ActionName)/index">@item.Text</a></li>
         }
     }
   </ol>
