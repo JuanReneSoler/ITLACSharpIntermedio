@@ -25,7 +25,8 @@ namespace Tareas.Controllers
             };
             ViewData["Buttons"] = new List<HomebuttonsModel>{
                 new HomebuttonsModel{ Text = "Tarea 1", ActionName = "Tarea1"},
-                new HomebuttonsModel{Text="Tarea 2(Tabla Periodica)", ActionName="Tarea2"}
+                new HomebuttonsModel{Text="Tarea 2(Tabla Periodica)", ActionName="Tarea2"},
+                new HomebuttonsModel{Text="Proyecto Final", ActionName="#"}
             };
             return View();
         }
