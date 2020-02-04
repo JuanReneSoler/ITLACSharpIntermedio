@@ -20,8 +20,8 @@ namespace Tareas.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Route"] = new List<string>{
-                "Home"
+            ViewData["Route"] = new List<HomebuttonsModel>{
+                new HomebuttonsModel{Text = "Home", ActionName="Home" }
             };
             ViewData["Buttons"] = new List<HomebuttonsModel>{
                 new HomebuttonsModel{ Text = "Tarea 1", ActionName = "Tarea1"},
