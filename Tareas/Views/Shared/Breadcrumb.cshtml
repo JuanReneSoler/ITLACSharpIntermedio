@@ -3,7 +3,7 @@
   <ol class="breadcrumb">
     <!--<li class="breadcrumb-item"><a href="/home/index">Home</a></li>-->
     @if(ViewData["Route"] != null){
-        var list = ViewData["Route"] as List<HomebuttonsModel>;
+        var list = ViewData["Route"] as List<HomeButtonsRequest>;
         foreach (var item in list)
         {
             if(item.Equals(list.Last())){

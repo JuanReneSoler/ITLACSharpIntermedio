@@ -31,20 +31,23 @@ namespace Tareas.Controllers
             return list.FirstOrDefault(x=>x.FechaInicio<=fecha && x.FechaFin>=fecha).Nombre;
         }
         
-        public IActionResult Index(){
-            ViewData["Route"] = new List<HomebuttonsModel>{
-                new HomebuttonsModel{Text="Home", ActionName = "Home"},
-                new HomebuttonsModel{Text = "Tarea 1", ActionName="Tarea1"}
+        public IActionResult Index()
+        {
+            ViewData["Route"] = new List<HomeButtonsRequest>{
+                new HomeButtonsRequest{Text="Home", ActionName = "Home"},
+                new HomeButtonsRequest{Text = "Tarea 1", ActionName="Tarea1"}
             };
             return View();
         }
 
-        public IActionResult p1(){
+        public IActionResult p1()
+        {
             return PartialView("~/Views/Tarea1/partials/p1.cshtml");
         }
 
         [HttpPost]
-        public async Task<IActionResult> p1(Models.p1Request p1){
+        public async Task<IActionResult> p1(p1Request p1)
+        {
             if(!ModelState.IsValid)
                 return PartialView("~/Views/Tarea1/partials/p1.cshtml",p1);
 
@@ -52,12 +55,14 @@ namespace Tareas.Controllers
             return PartialView("~/Views/Tarea1/partials/p1.cshtml",p1);
         }
 
-        public IActionResult p2(){
+        public IActionResult p2()
+        {
             return PartialView("~/Views/Tarea1/partials/p2.cshtml");
         }
 
         [HttpPost]
-        public async Task<IActionResult> p2(Models.p2Request p2){
+        public async Task<IActionResult> p2(p2Request p2)
+        {
             var value = Math.Pow(p2.b,2)-4*p2.a*p2.c;
             var i = string.Empty;
             if(value < 0){

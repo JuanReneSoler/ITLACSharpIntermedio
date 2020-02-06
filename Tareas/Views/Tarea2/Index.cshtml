@@ -2,7 +2,7 @@
 @{
     Html.RenderPartial("/Views/Shared/Breadcrumb.cshtml");
 }
-
+@model List<Tareas.Models.Elemento>
 <div>
     <h3>Tarea 2</h3>
     <p>
@@ -15,7 +15,36 @@ Esta tarea vale 4 puntos que se reparten de la sgte manera:
 * El último y cuarto punto se obtiene si usted valida que al borrar un elemento o varios elementos del array la estructura de la tabla se mantiene y donde debe estar el o los elementos eliminado se imprime un cuadro vacío con un color gris de fondo 
     </p>
 </div>
+<div>
+    <h1>Tabla Periodica de los Elementos</h1>
+    
 
+@{
+    /*
+    ******Algoritmo de ordenamiento de la tabla periodica******
 
+    el <Model> es una lista con todos los elementos
+    clasificados por tipo y subtipo.
 
+    por tipo me refiero a (metales, metaloides, no metales)
+    por subtipo me refiero a (alcalinos alcalinos terreos, gases nobles etc),
+    es decir a las clasificacioens que hay dentro de la primera clasificacion.
+    */
 
+    //chequeo que la lista de elemetos tenga datos
+    if(Model != null && Model.Any()){
+
+        //periodo
+        for(var j=1;j<=7;j++)
+        {
+            <div class="btn-group" role="group" aria-label="Basic example">
+            <!--grupo-->
+            @for(var i=1;i<=18;i++)
+            {
+                <button type="button" class="btn btn-secondary">Right</button>
+            }
+            </div>
+        }
+    }
+}
+</div>

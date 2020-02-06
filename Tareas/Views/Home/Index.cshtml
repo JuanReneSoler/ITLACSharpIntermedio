@@ -8,7 +8,7 @@
 
 <div class="">
     @if(ViewData["Buttons"] != null){
-        var list = ViewData["Buttons"] as List<Tareas.Models.HomebuttonsModel>;
+        var list = ViewData["Buttons"] as List<Tareas.Models.HomeButtonsRequest>;
         foreach (var item in list)
         {
             <a class="btn btn-primary btn-lg btn-block" href='/@(item.ActionName)/Index'>@item.Text</a>

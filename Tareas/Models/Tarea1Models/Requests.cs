@@ -3,13 +3,6 @@ using System.ComponentModel;
 
 namespace Tareas.Models
 {
-    public class HomebuttonsModel
-    {
-        public string Text { get; set; }
-        public string ActionName { get; set; }
-    }
-
-
     public class ListaSignosModel{
         public string Nombre { get; set; }
         public System.DateTime FechaInicio { get; set; }
