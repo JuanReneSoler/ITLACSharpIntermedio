@@ -3,6 +3,7 @@
     Html.RenderPartial("/Views/Shared/Breadcrumb.cshtml");
 }
 @model List<Tareas.Models.Elemento>
+@using Tareas.Models;
 <div>
     <h3>Tarea 2</h3>
     <p>
@@ -35,16 +36,87 @@ Esta tarea vale 4 puntos que se reparten de la sgte manera:
     if(Model != null && Model.Any()){
 
         //periodo
-        for(var j=1;j<=7;j++)
+        for(var i=1;i<=10;i++)
         {
             <div class="btn-group" role="group" aria-label="Basic example">
             <!--grupo-->
-            @for(var i=1;i<=18;i++)
+            @for(var j=1;j<=18;j++)
             {
-                <button type="button" class="btn btn-secondary">Right</button>
+                var element = Model.FirstOrDefault(x=> x.Periodo == i && x.Grupo == j)??new Elemento{Simbolo="",Nombre="",Tipo=null};
+                var color = element.Tipo == SubTipo.Alcalinos?"#4a235a"
+                :element.Tipo == SubTipo.Alcalinos_Terreos?" #a569bd"
+                :element.Tipo == SubTipo.Lantinidos?"#dc7633"
+                :element.Tipo == SubTipo.Actinidos?"#f5b7b1"
+                :element.Tipo == SubTipo.Metales_Transicion?"#f39c12"
+                :element.Tipo == SubTipo.OtrosMetales?"#f1c40f"
+                :element.Tipo == SubTipo.OtrosNoMetales?"#27ae60"
+                :element.Tipo == SubTipo.Halogenos?"#5dade2"
+                :element.Tipo == SubTipo.GasesNobles?"#2874a6"
+                :element.Tipo == SubTipo.Metaloides?"#f9e79f"
+                :"";
+                <button onclick="alert('@(element.Nombre)')" style="width: 50px;background-color:@(color);" type="button" class="btn">@element.Simbolo</button>
             }
             </div>
+            <br/>
         }
     }
 }
+<style>
+    .cuadro{
+        width: 15px;
+        height: 15px;
+        border: 1cm;
+    }
+</style>
+<div>
+    <h4>Leyenda</h4>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>
+                Alcalinos 
+                <div class="cuadro" style="background: #4a235a;"></div>
+            </td>
+            <td>
+                Alcalinos Terreos 
+                <div style="background: #a569bd;" class="cuadro"></div>
+            </td>
+            <td>
+                Lantinidos
+                <div style="background: #dc7633;" class="cuadro"></div>
+            </td>
+            <td>
+                Actinidos 
+                <div style="background: #f5b7b1;" class="cuadro"></div>
+            </td>
+            <td>
+                Metales Transicion 
+                <div style="background: #f39c12;" class="cuadro"></div>
+            </td>
+            <td>
+                Otros Metales 
+                <div style="background: #f1c40f;" class="cuadro"></div>
+            </td>
+            <td>
+                Otros No Metales 
+                <div style="background: #27ae60;" class="cuadro"></div>
+            </td>
+            <td>
+                Halogenos 
+                <div style="background: #5dade2;" class="cuadro"></span>
+            </td>
+            <td>
+                Gases Nobles 
+                <div style="background: #2874a6;" class="cuadro"></div>
+            </td>
+            <td>
+                Metaloides 
+                <div style="background: #f9e79f;" class="cuadro"></div>
+            </td>
+        </tr>
+    </table>
+
+    <ul>
+        
+    </ul>
+</div>
 </div>
