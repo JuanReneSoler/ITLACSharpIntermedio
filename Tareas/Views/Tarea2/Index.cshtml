@@ -42,19 +42,25 @@ Esta tarea vale 4 puntos que se reparten de la sgte manera:
             <!--grupo-->
             @for(var j=1;j<=18;j++)
             {
-                var element = Model.FirstOrDefault(x=> x.Periodo == i && x.Grupo == j)??new Elemento{Simbolo="",Nombre="",Tipo=null};
-                var color = element.Tipo == SubTipo.Alcalinos?"#4a235a"
-                :element.Tipo == SubTipo.Alcalinos_Terreos?" #a569bd"
-                :element.Tipo == SubTipo.Lantinidos?"#dc7633"
-                :element.Tipo == SubTipo.Actinidos?"#f5b7b1"
-                :element.Tipo == SubTipo.Metales_Transicion?"#f39c12"
-                :element.Tipo == SubTipo.OtrosMetales?"#f1c40f"
-                :element.Tipo == SubTipo.OtrosNoMetales?"#27ae60"
-                :element.Tipo == SubTipo.Halogenos?"#5dade2"
-                :element.Tipo == SubTipo.GasesNobles?"#2874a6"
-                :element.Tipo == SubTipo.Metaloides?"#f9e79f"
-                :"";
-                <button onclick="alert('@(element.Nombre)')" style="width: 50px;background-color:@(color);" type="button" class="btn">@element.Simbolo</button>
+                if(Model.Any(x=> x.Periodo == i && x.Grupo == j)){
+                    var element = Model.FirstOrDefault(x=> x.Periodo == i && x.Grupo == j);
+                    var color = element.Tipo == SubTipo.Alcalinos?"#4a235a"
+                    :element.Tipo == SubTipo.Alcalinos_Terreos?" #a569bd"
+                    :element.Tipo == SubTipo.Lantinidos?"#dc7633"
+                    :element.Tipo == SubTipo.Actinidos?"#f5b7b1"
+                    :element.Tipo == SubTipo.Metales_Transicion?"#f39c12"
+                    :element.Tipo == SubTipo.OtrosMetales?"#f1c40f"
+                    :element.Tipo == SubTipo.OtrosNoMetales?"#27ae60"
+                    :element.Tipo == SubTipo.Halogenos?"#5dade2"
+                    :element.Tipo == SubTipo.GasesNobles?"#2874a6"
+                    :element.Tipo == SubTipo.Metaloides?"#f9e79f"
+                    :"";
+                    <button onclick="alert('@(element.Nombre)')" style="width: 50px;background-color:@(color);" type="button" class="btn">@element.Simbolo</button>
+                }
+                else
+                {
+                    <div class="btn" style="width: 50px;"></div>
+                }
             }
             </div>
             <br/>
