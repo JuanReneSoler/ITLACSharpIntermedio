@@ -1,0 +1,59 @@
+
+@{
+    Layout="~/Views/Shared/_Layout.cshtml";
+}
+@{
+    Html.RenderPartial("/Views/Shared/Breadcrumb.cshtml");
+}
+
+@model Tareas.Models.EstudianteModel
+@using (Html.BeginForm(ViewData["MetodoSave"].ToString(),"Tarea3", FormMethod.Post, new {@class="form-row"}))
+{
+    <div class="col-md-12">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("",new{})
+        @Html.HiddenFor(x=>Model.id, new{})
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(x=>Model.nombre, new {})
+        @Html.TextBoxFor(x=>Model.nombre,new{@class="form-control", @required=""})
+        @Html.ValidationMessageFor(x=>Model.nombre,"*",new{@class="valid-feedback"})
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(x=>Model.apellido, new{})
+        @Html.TextBoxFor(x=>Model.apellido, new{@class="form-control", @required=""})
+        @Html.ValidationMessageFor(x=>Model.apellido, "*",new{@class="valid-feedback"})
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(x=>Model.carreraId,new{})
+        @Html.DropDownListFor(x=>Model.carreraId, (SelectList)ViewBag.Carreras, "--Selecciones Carrera--", new {@class="form-control", @required=""})
+        @Html.ValidationMessageFor(x=>Model.carreraId,"*",new{@class="valid-feedback"})
+    </div>
+    <div class="col-md-12 mb-3">
+        <div class="custom-control custom-switch">
+            @Html.CheckBoxFor(x=>Model.estado,new{@class="custom-control-input"})
+            @Html.LabelFor(x=>Model.estado,new{@class="custom-control-label"})
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a href="/Tarea3/Index" class="btn btn-danger">Volver</a>
+        <button class="btn btn-success">Guardar</button>
+    </div>
+}
+@section Scripts
+{
+<script>
+    $(function(){
+        $("#estado").click(function(event){
+            if($(this).is(":checked"))
+            {
+                $(this).val("True");
+            }
+            else
+            {
+                $(this).val("False");
+            }
+        });
+    });
+</script>
+}

@@ -1,0 +1,47 @@
+
+@model IEnumerable<Tareas.Models.EstudianteModel>
+@{
+Layout="~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Html.RenderPartial("/Views/Shared/Breadcrumb.cshtml");
+}
+<a href="/tarea3/new" class="btn btn-primary">Nuevo</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Carrera Actual</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Any())
+        {
+            foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.nombre</td>
+                    <td>@item.apellido</td>
+                    <td>@item.carreraText</td>
+                    <td>
+                        @{
+                            var text = item.estado?"Activo":"Inactivo";
+                        }
+                        @text
+                    </td>
+                    <td>
+                        <a href="/tarea3/delete?id=@(item.id)" class="btn btn-danger">Eliminar</a>
+                        <a href="/tarea3/edit?id=@(item.id)" class="btn btn-primary">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else{
+            <tr><td colspan="5">No hay datos para mostrar</td></tr>
+        }
+    </tbody>
+</table>
