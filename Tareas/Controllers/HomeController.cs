@@ -26,7 +26,8 @@ namespace Tareas.Controllers
             ViewData["Buttons"] = new List<HomeButtonsRequest>{
                 new HomeButtonsRequest{ Text = "Tarea 1", ActionName = "Tarea1"},
                 new HomeButtonsRequest{Text="Tarea 2(Tabla Periodica)", ActionName="Tarea2"},
-                new HomeButtonsRequest{Text="Tarea 3 (Matenimiento)", ActionName="Tarea3"}
+                new HomeButtonsRequest{Text="Tarea 3 (Matenimiento)", ActionName="Tarea3"},
+                new HomeButtonsRequest{Text="Tarea 4 (Pkedex)", ActionName="Tarea4"}
             };
             return View();
         }
