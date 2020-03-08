@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Tareas.CtxTarea3;
+using Tareas.CtxTarea4;
 
 namespace Tareas
 {
@@ -33,7 +34,11 @@ namespace Tareas
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Default")));
+            //services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea3")));
+            //services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea4")));
+            services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Tarea3;Trusted_Connection=True;"));
+            services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Tarea4;Trusted_Connection=True;"));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

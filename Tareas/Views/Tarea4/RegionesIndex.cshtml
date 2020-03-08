@@ -1,0 +1,42 @@
+
+
+@model Tareas.Tools.IPagination<Tareas.Models.RegionesListResponse>
+
+<h3>Lista de Regiones</h3>
+<div class="btn-group d-flex float-right mb-3">
+    <a href="/Tarea4/NewRegion" class="btn btn-success">Nueva Region</a>
+    <a href="/Tarea4/Index" class="btn btn-danger">Volver</a>
+</div>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.ListaDatos != null && Model.ListaDatos.Any())
+        {
+            foreach(var item in Model.ListaDatos)
+            {
+                <tr>
+                    <td>@item.Nonmbre</td>
+                    <td>
+                        <div style="height:15px;width:15px;background:@(item.RGB);"></div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="2">No hay elementos para mostrar</td></tr>
+        }
+    </tbody>
+</table>
+
+@{
+    Html.RenderPartial("_LayoutPaginator", Model);
+}
+

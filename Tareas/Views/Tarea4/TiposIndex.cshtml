@@ -1,0 +1,19 @@
+
+@model Tareas.Tools.IPagination<Tareas.Models.TipoListResponse>
+
+<div class="btn-group mb-3 d-flex float-right">
+    <a href="/Tarea4/NewTipo" class="btn btn-success">Nuevo Tipo</a>
+    <a href="/Tarea4/Index" class="btn btn-danger">Volver</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+</table>
+
+@{
+    Html.RenderPartial("_LayoutPaginator", Model);
+}

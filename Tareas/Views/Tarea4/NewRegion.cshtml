@@ -1,0 +1,26 @@
+
+@model RegionesListResponse
+
+@using(Html.BeginForm("SaveRegion", "Tarea4", FormMethod.Post, new{@class="form-row"}))
+{
+    <div class="col-12">
+        @Html.ValidationSummary("", new{})
+        @Html.AntiForgeryToken()
+    </div>
+    <div class="col-12">
+        @Html.LabelFor(x=>Model.Nonmbre, new{})
+        @Html.TextBoxFor(x=>Model.Nonmbre,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Nonmbre, "", new{})
+    </div>
+    <div class="col-1">
+        @Html.LabelFor(x=>Model.RGB, new{})
+        @Html.TextBoxFor(x=>Model.RGB,new{@class="form-control", @type="color"})
+        @Html.ValidationMessageFor(x=>Model.RGB, "", new{})
+    </div>
+    <div class="col-12 mb-3">
+        <div class="btn-group d-flex float-right">
+            <button class="btn btn-success">Guardar</button>
+            <a type="cancel" class="btn btn-danger" href="/Tarea4/RegionesIndex">Canelar</a>
+        </div>
+    </div>
+}
