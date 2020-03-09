@@ -20,14 +20,11 @@ namespace Tareas.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Route"] = new List<HomeButtonsRequest>{
-                new HomeButtonsRequest{Text = "Home", ActionName="Home" }
-            };
             ViewData["Buttons"] = new List<HomeButtonsRequest>{
-                new HomeButtonsRequest{ Text = "Tarea 1", ActionName = "Tarea1"},
-                new HomeButtonsRequest{Text="Tarea 2(Tabla Periodica)", ActionName="Tarea2"},
-                new HomeButtonsRequest{Text="Tarea 3 (Matenimiento)", ActionName="Tarea3"},
-                new HomeButtonsRequest{Text="Tarea 4 (Pkedex)", ActionName="Tarea4"}
+                new HomeButtonsRequest{ Text = "Tarea 1", ControllerName = "Tarea1", ActionName = "Index"},
+                new HomeButtonsRequest{Text="Tarea 2(Tabla Periodica)", ControllerName="Tarea2", ActionName = "Index"},
+                new HomeButtonsRequest{Text="Tarea 3 (Matenimiento)", ControllerName="Tarea3", ActionName="Index"},
+                new HomeButtonsRequest{Text="Tarea 4 (Pkedex)", ControllerName="Tarea4", ActionName = "IndexPokemon"}
             };
             return View();
         }

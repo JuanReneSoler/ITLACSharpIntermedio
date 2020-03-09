@@ -22,7 +22,7 @@ namespace Tareas.CtxTarea4
             return new Region
             {
                 Id = v.Id,
-                Nombre = v.Nonmbre,
+                Nombre = v.Nombre,
                 Rgbcolor = v.RGB
             };
         }
@@ -31,8 +31,28 @@ namespace Tareas.CtxTarea4
             return new RegionesListResponse
             {
                 Id = v.Id,
-                Nonmbre = v.Nombre,
+                Nombre = v.Nombre,
                 RGB = v.Rgbcolor
+            };
+        }
+    }
+
+    public partial class Tipo
+    {
+        public static explicit operator Tipo(TipoListResponse v)
+        {
+            return new Tipo
+            {
+                Id = v.Id,
+                Nombre = v.Nombre,
+            };
+        }
+        public static explicit operator TipoListResponse(Tipo v)
+        {
+            return new TipoListResponse
+            {
+                Id = v.Id,
+                Nombre = v.Nombre,
             };
         }
     }

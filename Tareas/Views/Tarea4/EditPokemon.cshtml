@@ -1,13 +1,14 @@
+@* 
+
+@model Tareas.Models.PokemonRequest
 
 
-@model Tareas.Models.PokemonREquest
-
-
-@using(Html.BeginForm("Save", "Tarea4", FormMethod.Post, new { @class="form-row"}))
+@using(Html.BeginForm("EditPokemon", "Tarea4", FormMethod.Post, new { @class="form-row"}))
 {
     <div class="col-12">
         @Html.AntiForgeryToken()
         @Html.ValidationSummary("", new {})
+        @Html.HiddenFor(x=>x.Id, new{})
     </div>
     <div class="col-12">
         @Html.LabelFor(x=>Model.Nombre,new{})
@@ -30,4 +31,4 @@
         @Html.ValidationMessageFor(x=>Model.AtaquesId, "" ,new{})
     </div>
 }
-
+ *@

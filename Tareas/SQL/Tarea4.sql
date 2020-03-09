@@ -39,11 +39,3 @@ create table Ataques
     Nombre varchar(100)
 )
 
-
-
-
-
-
-
-
-

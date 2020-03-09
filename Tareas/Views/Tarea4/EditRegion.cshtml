@@ -1,11 +1,11 @@
+@model Tareas.Models.RegionesListResponse
 
-@model RegionesListResponse
-
-@using(Html.BeginForm("NewRegion", "Tarea4", FormMethod.Post, new{@class="form-row"}))
+@using(Html.BeginForm("EditRegion", "Tarea4", FormMethod.Post, new{@class="form-row"}))
 {
     <div class="col-12">
         @Html.ValidationSummary("", new{})
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(x=>Model.Id,new{})
     </div>
     <div class="col-12">
         @Html.LabelFor(x=>Model.Nombre, new{})

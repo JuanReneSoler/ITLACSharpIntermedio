@@ -35,7 +35,9 @@ namespace Tareas.Tools
                     throw new System.Exception("Numenoro de paginas es imposible de calcular");
                 if(this.Content.Count() == 0)
                     return 1;
-                return this.Content.Count()/this.LengthForPage;
+                //var pages = this.LengthForPage % 2 == 0 ? this.Content.Count()/this.LengthForPage : (this.Content.Count()/this.LengthForPage) + 1; 
+                var pages = this.Content.Count()%this.LengthForPage > 0 ? (this.Content.Count()/this.LengthForPage) + 1 : this.Content.Count()/this.LengthForPage ;
+                return pages;
             }
         }
         public string ActionName { get; }

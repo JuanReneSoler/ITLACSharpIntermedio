@@ -1,19 +1,18 @@
 
+@model Tareas.Tools.IPagination<Tareas.Models.TipoListResponse>
 
-@model Tareas.Tools.IPagination<Tareas.Models.RegionesListResponse>
+<h3>Nuevo Tipo</h3>
 
-<h3>Lista de Regiones</h3>
-<div class="btn-group d-flex float-right mb-3">
-    <a href="/Tarea4/NewRegion" class="btn btn-success">Nueva Region</a>
-    <a href="/Tarea4/Index" class="btn btn-danger">Volver</a>
+<div class="btn-group mb-3 d-flex float-right">
+    <a href="/Tarea4/NewTipo" class="btn btn-success">Nuevo Tipo</a>
+    <a href="/Tarea4/IndexPokemon" class="btn btn-danger">Volver</a>
 </div>
-
 
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Color</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,16 +21,16 @@
             foreach(var item in Model.ListaDatos)
             {
                 <tr>
-                    <td>@item.Nonmbre</td>
+                    <td>@item.Nombre</td>
                     <td>
-                        <div style="height:15px;width:15px;background:@(item.RGB);"></div>
+                        <a href="/Tarea4/EditTipo?id=@(item.Id)" class="btn btn-primary">Editar</a>
                     </td>
                 </tr>
             }
         }
         else
         {
-            <tr><td colspan="2">No hay elementos para mostrar</td></tr>
+            <tr><td colspan="2">No hay datos para mostrar</td></tr>
         }
     </tbody>
 </table>
@@ -39,4 +38,3 @@
 @{
     Html.RenderPartial("_LayoutPaginator", Model);
 }
-

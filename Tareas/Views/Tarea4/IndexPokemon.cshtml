@@ -5,9 +5,9 @@
 
 <h3>Lista pokemones</h3>
 <div class="btn-group d-flex float-right mb-3">
-    <a class="btn btn-success" href="/Tarea4/New">Nuevo pokemon</a>
-    <a class="btn btn-primary" href="/Tarea4/RegionesIndex">Ver Regiones</a>
-    <a class="btn btn-info" href="/Tarea4/TiposIndex">Ver Tipos</a>
+    <a class="btn btn-success" href="/Tarea4/NewPokemon">Nuevo pokemon</a>
+    <a class="btn btn-primary" href="/Tarea4/IndexRegion">Ver Regiones</a>
+    <a class="btn btn-info" href="/Tarea4/IndexTipo">Ver Tipos</a>
 </div> 
 
 
@@ -17,6 +17,7 @@
             <th>Nombre</th>
             <th>Region</th>
             <th>Tipo</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -28,12 +29,13 @@
                     <td>@item.nombre</td>
                     <td>@item.region</td>
                     <td>@item.tipo</td>
+                    <td></td>
                 </tr>
             }
         }
         else{
             <tr>
-                <td colspan="3">No hay datos pora mostrar</td>
+                <td colspan="4">No hay datos pora mostrar</td>
             </tr>
         }
     </tbody>

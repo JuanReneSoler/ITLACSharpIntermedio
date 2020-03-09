@@ -1,0 +1,19 @@
+@model Tareas.Models.TipoListResponse
+
+@using(Html.BeginForm("NewTipo", "Tarea4", FormMethod.Post, new{@class="form-row"}))
+{
+    <div class="col-12">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new{})
+        @Html.HiddenFor(x=>Model.Id,new{})
+    </div>
+    <div class="col-12">
+        @Html.LabelFor(x=>x.Nombre, new{})
+        @Html.TextBoxFor(x=>Model.Nombre,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Nombre,"*",new{})
+    </div>
+    <div class="col-12">
+        <button class="btn btn-success">Guardar</button>
+        <a href="/Tarea4/IndexTipo" class="btn btn-danger">Volver</a>
+    </div>
+}
