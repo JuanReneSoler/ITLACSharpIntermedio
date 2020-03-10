@@ -3,6 +3,11 @@
 
 // Write your JavaScript code.
 
+function DeleteItem()
+{
+
+}
+
 function Binding(tag, propertyBinding, tableToPresent, value)
 {
     if(!$(tag).prop("checked"))
@@ -21,5 +26,6 @@ function addAtaque(search, tagBinding, propertyBinding)
 {
     var text = $("#"+search).val();
     var guid = $("#"+tagBinding).find("li").length;
-    $("#"+tagBinding).append("<li name='"+propertyBinding+"["+guid+"]' value='"+text+"'>"+text+"</li>");
+    var html = '<li><input type="hidden" value="'+text+'" name="'+propertyBinding+'['+guid+']">'+text+'</li>';
+    $("#"+tagBinding).append(html);
 }
