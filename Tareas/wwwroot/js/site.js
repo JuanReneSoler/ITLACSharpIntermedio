@@ -3,29 +3,44 @@
 
 // Write your JavaScript code.
 
-function DeleteItem()
-{
-
-}
 
 function Binding(tag, propertyBinding, tableToPresent, value)
 {
     if(!$(tag).prop("checked"))
     {
-        $(tag).attr("id", "");
-        $(tag).attr("name", "");
-        $("#"+tableToPresent).find("li[id='"+value+"']").remove();
-        return;
+        let input = $("#"+tableToPresent).find("input[value='"+tag.id+"']").parent();
+        return Remove(input, tableToPresent, propertyBinding);
     }
-    var guid = $(tag).parents("tbody").find("input:checked").length-1;
-    $(tag).attr("name", propertyBinding+"["+guid+"]");
-    $("#"+tableToPresent).append("<li id='"+value+"'>"+value+"</li>");
+    Append(tableToPresent, propertyBinding, tag.id, value);
+
 }
 
 function addAtaque(search, tagBinding, propertyBinding)
 {
-    var text = $("#"+search).val();
-    var guid = $("#"+tagBinding).find("li").length;
-    var html = '<li><input type="hidden" value="'+text+'" name="'+propertyBinding+'['+guid+']">'+text+'</li>';
-    $("#"+tagBinding).append(html);
+    let text = $("#"+search).val();
+    Append(tagBinding, propertyBinding, text, text);
+}
+
+function Append(id, property, value, text)
+{
+    let count = $("#"+id).find("li").length;
+    $("#"+id).append(`
+        <li>
+            <input name='`+property+`[`+count+`]' type='hidden' value='`+value+`' />
+            `+text+` 
+            <input type='button' class='btn btn-danger' value='-' onclick="Remove($(this).parent(), '`+id+`', '`+property+`')">
+        </li>`);
+}
+
+function Remove(tag, idTable, property)
+{
+    var val = $(tag).parent().find("input[type='hidden']").val();
+    $(tag).remove();
+    let count = $("#"+idTable).find("li").length;
+    let inputs = $("#"+idTable).find("input");
+    for(let c=0; c<=count;c++)
+    {
+        $(inputs[c]).prop("name", property+"["+c+"]");
+        $("input[type$='checkbox'][id$='"+val+"']").prop("checked", false);
+    }
 }
