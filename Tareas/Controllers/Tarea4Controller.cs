@@ -47,6 +47,11 @@ namespace Tareas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewPokemon(PokemonRequest pokemon)
         {
+            // this.context.Pokemon(new Pokemon{
+            //     Id = pokemon.Id,
+            //     Nombre = pokemon.Nombre,
+            //     RegionId
+            // });
             return RedirectToAction(nameof(this.IndexPokemon));
         }
 

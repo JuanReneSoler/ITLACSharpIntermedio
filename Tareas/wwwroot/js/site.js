@@ -12,7 +12,6 @@ function Binding(tag, propertyBinding, tableToPresent, value)
         return Remove(input, tableToPresent, propertyBinding);
     }
     Append(tableToPresent, propertyBinding, tag.id, value);
-
 }
 
 function addAtaque(search, tagBinding, propertyBinding)
