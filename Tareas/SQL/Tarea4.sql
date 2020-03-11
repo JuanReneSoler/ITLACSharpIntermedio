@@ -15,14 +15,15 @@ create table Region
 create table Tipo
 (
     Id int not null primary key IDENTITY(1,1),
-    Nombre varchar(100) not null
+    Nombre varchar(100) not null,
+    RGBColor varchar(8) not null
 )
 
 create table Pokemon
 (
     Id int not null primary key identity(1,1),
     Nombre varchar(50) not null,
-    RegionId int not null FOREIGN key REFERENCES Region(Id)
+    FotoPath varchar(max)
 )
 
 create table TipoPokemon
@@ -32,10 +33,16 @@ create table TipoPokemon
     TipoId int not null foreign key references Tipo(Id)
 )
 
+create table RegionPokemon
+(
+    Id int not null primary key identity(1,1),
+    PokemonId int not null foreign key references Pokemon(Id),
+    RegionId int not null foreign key references Region(Id)
+)
+
 create table Ataques
 (
     Id int not null primary key identity(1,1),
     PokemonId int not null foreign key references Pokemon(Id),
     Nombre varchar(100)
 )
-
