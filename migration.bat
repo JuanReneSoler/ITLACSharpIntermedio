@@ -1,1 +1,1 @@
-dotnet ef dbcontext scaffold "Server=s-sil-drllo;Database=Tarea4;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o CtxTarea4 -c Tarea4Context --project .\Tareas\Tareas.csproj
+dotnet ef dbcontext scaffold "Server=localhost\SQLEXPRESS;Database=Tarea4;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o CtxTarea4 -c Tarea4Context --project .\Tareas\Tareas.csproj
