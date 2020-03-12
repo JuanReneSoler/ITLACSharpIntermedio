@@ -7,13 +7,13 @@ namespace Tareas.CtxTarea4
     {
         public Region()
         {
-            Pokemon = new HashSet<Pokemon>();
+            RegionPokemon = new HashSet<RegionPokemon>();
         }
 
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Rgbcolor { get; set; }
 
-        public virtual ICollection<Pokemon> Pokemon { get; set; }
+        public virtual ICollection<RegionPokemon> RegionPokemon { get; set; }
     }
 }

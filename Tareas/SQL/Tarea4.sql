@@ -16,7 +16,8 @@ create table Tipo
 (
     Id int not null primary key IDENTITY(1,1),
     Nombre varchar(100) not null,
-    RGBColor varchar(8) not null
+    RGBColor varchar(8) not null,
+    FotoPath varchar(max)
 )
 
 create table Pokemon

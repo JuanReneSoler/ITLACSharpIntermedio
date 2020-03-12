@@ -6,12 +6,13 @@ namespace Tareas.CtxTarea4
     {
         public static explicit operator PokemonListResponse(Pokemon v)
         {
-            return new PokemonListResponse
-            {
-                nombre = v.Nombre,
-                region = v.Region.Nombre,
-                tipo = string.Join(',',v.TipoPokemon)
-            };
+            // return new PokemonListResponse
+            // {
+            //     nombre = v.Nombre,
+            //     region = v.Region.Nombre,
+            //     tipo = string.Join(',',v.TipoPokemon)
+            // };
+            throw new System.NotImplementedException();
         }
     }
 

@@ -12,6 +12,8 @@ namespace Tareas.CtxTarea4
 
         public int Id { get; set; }
         public string Nombre { get; set; }
+        public string Rgbcolor { get; set; }
+        public string FotoPath { get; set; }
 
         public virtual ICollection<TipoPokemon> TipoPokemon { get; set; }
     }
