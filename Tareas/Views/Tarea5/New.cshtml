@@ -1,0 +1,30 @@
+
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@model PublicacionDto
+
+@using (Html.BeginForm("New","Tarea5", FormMethod.Post, new{@class="form-row"}))
+{
+    <div class="col-12">
+        @Html.ValidationSummary("",new{})
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x=>x.Id,new{})
+    </div>
+    <div class="col-12 mb-3">
+        @Html.LabelFor(x=>x.Title,new{})
+        @Html.TextBoxFor(x=>x.Title,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>x.Title,"",new{})
+    </div>
+    <div class="col-12 mb-3">
+        @Html.LabelFor(x=>x.Contenido,new{})
+        @Html.TextAreaFor(x=>x.Contenido,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>x.Contenido,"",new{})
+    </div>
+    <div class="col-12 mb-3">
+        <button class="btn btn-success">Guardar</button>
+        <a href="/Tarea5/Index" class="btn btn-danger">Cancelar</a>
+    </div>
+}
+

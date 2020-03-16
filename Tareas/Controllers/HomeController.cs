@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Tareas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tareas.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,7 +26,8 @@ namespace Tareas.Controllers
                 new HomeButtonsRequest{ Text = "Tarea 1", ControllerName = "Tarea1", ActionName = "Index"},
                 new HomeButtonsRequest{Text="Tarea 2(Tabla Periodica)", ControllerName="Tarea2", ActionName = "Index"},
                 new HomeButtonsRequest{Text="Tarea 3 (Matenimiento)", ControllerName="Tarea3", ActionName="Index"},
-                new HomeButtonsRequest{Text="Tarea 4 (Pkedex)", ControllerName="Tarea4", ActionName = "IndexPokemon"}
+                new HomeButtonsRequest{Text="Tarea 4 (Pkedex)", ControllerName="Tarea4", ActionName = "IndexPokemon"},
+                new HomeButtonsRequest{Text="Tarea 5 (Blog)", ControllerName="Tarea5", ActionName="Index"}
             };
             return View();
         }

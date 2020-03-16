@@ -5,9 +5,11 @@ using Tareas.Models;
 using Tareas.CtxTarea4;
 using Tareas.Tools;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tareas.Controllers
 {
+    [AllowAnonymous]
     public class Tarea4Controller : Controller
     {
         private Tarea4Context context;

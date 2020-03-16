@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Tareas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tareas.Controllers
 {
+    [AllowAnonymous]
     public class Tarea1Controller:Controller
     {
         private string Signos(DateTime fecha){
@@ -33,10 +35,6 @@ namespace Tareas.Controllers
         
         public IActionResult Index()
         {
-            ViewData["Route"] = new List<HomeButtonsRequest>{
-                new HomeButtonsRequest{Text="Home", ActionName = "Home"},
-                new HomeButtonsRequest{Text = "Tarea 1", ActionName="Tarea1"}
-            };
             return View();
         }
 

@@ -2,9 +2,6 @@
 @{
     Layout="~/Views/Shared/_Layout.cshtml";
 }
-@{
-    Html.RenderPartial("/Views/Shared/Breadcrumb.cshtml");
-}
 
 @model Tareas.Models.EstudianteModel
 @using (Html.BeginForm(ViewData["MetodoSave"].ToString(),"Tarea3", FormMethod.Post, new {@class="form-row"}))

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Tareas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tareas.Controllers
 {
+    [AllowAnonymous]
     public class Tarea2Controller: Controller
     {
         private List<Elemento> list = new List<Elemento>
@@ -138,10 +140,6 @@ new Elemento{Simbolo="Ac-Lr", Nombre="Actinisdos",  Grupo=3,      Periodo=  7, T
 
         public IActionResult Index()
         {
-            ViewData["Route"] = new List<HomeButtonsRequest>{
-                new HomeButtonsRequest{Text="Home", ActionName = "Home"},
-                new HomeButtonsRequest{Text="Tarea 2", ActionName = "Tarea2"}
-            };
             return View(this.list);
         }
     }

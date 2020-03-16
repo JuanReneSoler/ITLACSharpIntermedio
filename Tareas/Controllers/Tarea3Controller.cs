@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Tareas.Models;
 using Tareas.CtxTarea3;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tareas.Controllers
 {
@@ -16,6 +17,7 @@ namespace Tareas.Controllers
         public int id { get; set; }
         public string descripcion { get; set; }
     }
+    [AllowAnonymous]
     public class Tarea3Controller:Controller
     {
         private Tarea3Context context;
@@ -31,10 +33,6 @@ namespace Tareas.Controllers
         }
         public IActionResult Index()
         {
-            ViewData["Route"] = new List<HomeButtonsRequest>{
-                new HomeButtonsRequest{Text="Home", ActionName = "Home"},
-                new HomeButtonsRequest{Text="Tarea 3", ActionName = "Tarea3"}
-            };
             var list = context.Estudiantes.ToList().Select(x=> new EstudianteModel{
                 id = x.Id,
                 nombre = x.Nombre,

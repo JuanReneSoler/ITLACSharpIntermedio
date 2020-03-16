@@ -1,0 +1,30 @@
+@model LogInDto
+@{
+    Layout="~/Views/Shared/_Layout2.cshtml";
+}
+
+@using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new {@class="form-row"}))
+{
+    <div class="col-12">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("",new{})
+    </div>
+    <div class="col-12 mb-3">
+        @Html.LabelFor(x=>x.UserName,new{})
+        @Html.TextBoxFor(x=>x.UserName,new{@class="form-control col-6"})
+        @Html.ValidationMessageFor(x=>x.UserName,"",new{})
+    </div>
+    <div class="col-12 mb-3">
+        @Html.LabelFor(x=>x.Password,new{})
+        @Html.PasswordFor(x=>x.Password,new{@class="form-control col-6"})
+        @Html.ValidationMessageFor(x=>x.Password,"",new{})
+    </div>
+    <div class="col-12 mb-3">
+        @Html.LabelFor(x=>x.RememberMe,new{})
+        @Html.CheckBoxFor(x=>x.RememberMe,new{})
+        @Html.ValidationMessageFor(x=>x.RememberMe,"",new{})
+    </div>
+    <div class="col-12 mb-3">
+        <button class="btn btn-success">LogIn</button>
+    </div>
+}

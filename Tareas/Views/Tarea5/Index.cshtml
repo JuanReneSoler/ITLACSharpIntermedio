@@ -1,0 +1,32 @@
+@{
+    Layout="~/Views/Shared/_Layout2.cshtml";
+}
+@model IEnumerable<Tareas.CtxTarea5.Publicacion>
+<h1>Tarea 5 (Post)</h1>
+@if(Model != null && Model.Any())
+{
+    <a href="/Tarea5/New" class="btn btn-success">Anadir Publicacion</a>
+    foreach(var item in Model)
+    {
+        <div class="card text-white bg-secondary mb-3" style="max-width: 30rem;">
+            <div class="card-header">
+                @item.Titulo
+                <div class="form-inline d-flex justify-content-end">
+                    <a href="/Tarea5/Edit?id=@(item.Id)" class="btn btn-info">Editar</a>
+                    <form class="" method="POST" action="/Tarea5/Delete?id=@(item.Id)"><button class="btn btn-primary">Eliminar</button></form>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@item.FechaPublicacion.Value.ToString("dd/MM/yyyy")</h5>
+                <p class="card-text">
+                    @item.Contenido
+                </p>
+            </div>
+        </div>
+        }
+    
+}
+else
+{
+    //
+}

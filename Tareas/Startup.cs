@@ -12,6 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Tareas.CtxTarea3;
 using Tareas.CtxTarea4;
+using Tareas.CtxTarea5;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Tareas
 {
@@ -36,10 +40,25 @@ namespace Tareas
 
             services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea3")));
             services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea4")));
+            services.AddDbContext<Tarea5Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea5")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>(x=>
+                {
+                    x.Password.RequiredLength = 8;
+                }).AddEntityFrameworkStores<Tarea5Context>();
+
+            //services.Configure<IdentityOptions>();
             //services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer("Server=s-sil-drllo;Database=Tarea3;Trusted_Connection=True;"));
             //services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer("Server=s-sil-drllo;Database=Tarea4;Trusted_Connection=True;"));
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(
+                x=>{
+                    var policy = new AuthorizationPolicyBuilder()
+                                    .RequireAuthenticatedUser()
+                                    .Build();
+                    x.Filters.Add(new AuthorizeFilter(policy));
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +78,7 @@ namespace Tareas
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
