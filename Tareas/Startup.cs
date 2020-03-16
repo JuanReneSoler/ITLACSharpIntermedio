@@ -34,10 +34,10 @@ namespace Tareas
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea3")));
-            //services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea4")));
-            services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Tarea3;Trusted_Connection=True;"));
-            services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer("Server=s-sil-drllo;Database=Tarea4;Trusted_Connection=True;"));
+            services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea3")));
+            services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer(Configuration.GetConnectionString("Tarea4")));
+            //services.AddDbContext<Tarea3Context>(x=>x.UseSqlServer("Server=s-sil-drllo;Database=Tarea3;Trusted_Connection=True;"));
+            //services.AddDbContext<Tarea4Context>(x=>x.UseSqlServer("Server=s-sil-drllo;Database=Tarea4;Trusted_Connection=True;"));
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

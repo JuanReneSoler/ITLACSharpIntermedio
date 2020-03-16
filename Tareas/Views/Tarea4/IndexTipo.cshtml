@@ -12,6 +12,7 @@
     <thead>
         <tr>
             <th>Nombre</th>
+            <th>Color</th>
             <th></th>
         </tr>
     </thead>
@@ -23,7 +24,11 @@
                 <tr>
                     <td>@item.Nombre</td>
                     <td>
+                        <div style="height:15px;width:15px;background:@(item.RGB);"></div>
+                    </td>
+                    <td>
                         <a href="/Tarea4/EditTipo?id=@(item.Id)" class="btn btn-primary">Editar</a>
+                        <a href="/Tarea4/DeleteTipo?id=@(item.Id)" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
             }

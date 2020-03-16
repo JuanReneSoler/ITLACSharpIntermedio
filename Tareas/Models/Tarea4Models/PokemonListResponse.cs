@@ -3,10 +3,11 @@ namespace Tareas.Models
 {
     public class PokemonListResponse
     {
-        public string nombre { get; set; }
-        public TipoListResponse[] tipos { get; set; }
-        public RegionesListResponse regiones { get; set; }
-        public string fotoBase64 { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public TipoListResponse[] Tipos { get; set; }
+        public RegionesListResponse[] Regiones { get; set; }
+        public string FotoBase64 { get; set; }
     }
 }
 

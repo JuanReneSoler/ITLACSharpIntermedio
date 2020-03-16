@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Tareas.Models;
 using Tareas.CtxTarea4;
 using Tareas.Tools;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tareas.Controllers
@@ -26,7 +21,12 @@ namespace Tareas.Controllers
             if(Request.Query["key"].ToString() != null)
                 ModelState.AddModelError(Request.Query["key"].ToString(), Request.Query["error"].ToString());
 
-            var paginador = new Paginator<Pokemon, PokemonListResponse>(this.context.Pokemon,page, length, nameof(this.IndexPokemon), "Tarea4");
+            var list = this.context.Pokemon
+                .Include(x=> x.RegionPokemon).ThenInclude(x=>x.Region)
+                .Include(x=>x.TipoPokemon).ThenInclude(x=>x.Tipo)
+                .Include(x=>x.Ataques);
+
+            var paginador = new Paginator<Pokemon, PokemonListResponse>(list,page, length, nameof(this.IndexPokemon), "Tarea4");
             return View(paginador.Pagination);
         }
 
@@ -47,12 +47,68 @@ namespace Tareas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewPokemon(PokemonRequest pokemon)
         {
-            // this.context.Pokemon(new Pokemon{
-            //     Id = pokemon.Id,
-            //     Nombre = pokemon.Nombre,
-            //     RegionId
-            // });
+            var entity = (Pokemon)pokemon;
+            await this.context.Pokemon.AddAsync(entity);
+            await this.context.SaveChangesAsync();
             return RedirectToAction(nameof(this.IndexPokemon));
+        }
+
+        public async Task<IActionResult> EditPokemon(int id)
+        {
+            var entity = await this.context.Pokemon
+                        .Include(x=>x.RegionPokemon).ThenInclude(x=>x.Region)
+                        .Include(x=>x.TipoPokemon).ThenInclude(x=>x.Tipo)
+                        .Include(x=>x.Ataques)
+                        .FirstOrDefaultAsync(x=> x.Id == id);
+
+            var listRegiones = this.context.Region.ToList().Select(x=>(RegionesListResponse)x);
+            ViewBag.Regiones = listRegiones;
+            var listTipos = this.context.Tipo.ToList().Select(x=>(TipoListResponse)x);
+            ViewBag.Tipos = listTipos;
+            return View((PokemonRequest)entity);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPokemon(PokemonRequest pokemon)
+        {
+            var entity = (Pokemon)pokemon;
+            this.context.Pokemon.Update(entity);
+            await this.context.SaveChangesAsync();
+            return RedirectToAction(nameof(this.IndexPokemon));
+        }
+
+        public async Task<IActionResult> DeletePokemon(int id)
+        {
+            var entity = await this.context.Pokemon.FirstOrDefaultAsync(x=>x.Id == id);
+            var regiones = this.context.RegionPokemon.Where(x=>x.PokemonId == id);
+            var tipos = this.context.TipoPokemon.Where(x=>x.PokemonId == id);
+            var atakes = this.context.Ataques.Where(x=>x.PokemonId == id);
+            if(
+                regiones.Count()< 1
+                && tipos.Count()< 1
+                && atakes.Count()< 1
+            )
+                throw new System.Exception("El pokemon no puede ser borrado");
+
+            this.context.Ataques.RemoveRange(atakes);
+            this.context.TipoPokemon.RemoveRange(tipos);
+            this.context.RegionPokemon.RemoveRange(regiones);
+            this.context.Pokemon.Remove(entity);
+            await this.context.SaveChangesAsync();
+            return RedirectToAction(nameof(this.IndexPokemon));
+        }
+
+        public async Task<IActionResult> DetailPokemon(int id)
+        {
+            var entity = await this.context.Pokemon
+                        .Include(x=>x.RegionPokemon).ThenInclude(x=>x.Region)
+                        .Include(x=>x.TipoPokemon).ThenInclude(x=>x.Tipo)
+                        .Include(x=>x.Ataques)
+                        .FirstOrDefaultAsync(x=> x.Id == id);
+            
+            return View((PokemonRequest)entity);
         }
 
         public IActionResult IndexRegion(int page = 1, int length = 10)
@@ -70,7 +126,8 @@ namespace Tareas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewRegion(RegionesListResponse region)
         {
-            await this.context.Region.AddAsync((Region)region);
+            var entity = (Region)region;
+            await this.context.Region.AddAsync(entity);
             await this.context.SaveChangesAsync();
             return RedirectToAction(nameof(this.IndexRegion));
         }
@@ -92,6 +149,29 @@ namespace Tareas.Controllers
             return RedirectToAction(nameof(this.IndexRegion));
         }
 
+        public async Task<IActionResult> DeleteRegion(int id)
+        {
+            if(this.context.Region.Count(x=>x.Id == id) < 1)
+                throw new System.Exception("El tipo no puede ser borrado.");
+
+            var entity = await this.context.Region.FirstOrDefaultAsync(x=>x.Id == id);
+            if(this.context.RegionPokemon.Any(x=>x.RegionId == id))
+            {
+                var regionpokemon = await this.context.RegionPokemon.FirstOrDefaultAsync(x=>x.RegionId == id);
+                this.context.RegionPokemon.Remove(regionpokemon);
+            }
+            this.context.Region.Remove(entity);
+            await this.context.SaveChangesAsync();
+            return RedirectToAction(nameof(this.IndexRegion));
+        }
+
+        public async Task<IActionResult> DetailRegion(int id)
+        {
+            var entity = await this.context.Region.FirstOrDefaultAsync(x=>x.Id == id);
+            var region = (RegionesListResponse)entity;
+            return View(region);
+        }
+
         public IActionResult IndexTipo(int page = 1, int length = 10)
         {
             var paginator = new Paginator<Tipo, TipoListResponse>(this.context.Tipo, page, length, nameof(this.IndexTipo), "Tarea4");
@@ -108,12 +188,46 @@ namespace Tareas.Controllers
         public async Task<IActionResult> NewTipo(TipoListResponse tipo)
         {
             var entity = (Tipo)tipo;
-            this.context.Tipo.Update(entity);
+            await this.context.Tipo.AddAsync(entity);
             await this.context.SaveChangesAsync();
             return RedirectToAction(nameof(this.IndexTipo));
         }
 
         public async Task<IActionResult> EditTipo(int id)
+        {
+            var entity = await this.context.Tipo.FirstOrDefaultAsync(x=> x.Id == id);
+            var tipo = (TipoListResponse)entity;
+            return View(tipo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTipo(TipoListResponse tipo)
+        {
+            var entity = (Tipo)tipo;
+            this.context.Tipo.Update(entity);
+            await this.context.SaveChangesAsync();
+            return RedirectToAction(nameof(this.IndexTipo));
+        }
+
+        public async Task<IActionResult> DeleteTipo(int id)
+        {
+            var p = this.context.Tipo.Count(x=>x.Id == id);
+            if(this.context.Tipo.Count(x=>x.Id == id)<1)
+                throw new System.Exception("El tipo no puede ser borrado");
+            
+            var entity = await this.context.Tipo.FirstOrDefaultAsync(x=>x.Id == id);
+            if(this.context.TipoPokemon.Any(x=> x.TipoId == id))
+            {
+                var tipopokemon = await this.context.TipoPokemon.FirstOrDefaultAsync(x=>x.TipoId == id);
+                this.context.TipoPokemon.Remove(tipopokemon);
+            }
+            this.context.Tipo.Remove(entity);
+            await this.context.SaveChangesAsync();
+            return RedirectToAction(nameof(this.IndexTipo));
+        }
+
+        public async Task<IActionResult> DetailTipo(int id)
         {
             var entity = await this.context.Tipo.FirstOrDefaultAsync(x=> x.Id == id);
             var tipo = (TipoListResponse)entity;

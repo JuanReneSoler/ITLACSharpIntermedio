@@ -1,19 +1,33 @@
-@model Tareas.Models.TipoListResponse
 
-@using(Html.BeginForm("NewTipo", "Tarea4", FormMethod.Post, new{@class="form-row"}))
+
+@model Tareas.Models.TipoListResponse
+<h3>Editar Tipo</h3>
+@using(Html.BeginForm("EditTipo", "Tarea4", FormMethod.Post, new{@class="form-row", @enctype="multipart/form-data"}))
 {
     <div class="col-12">
         @Html.AntiForgeryToken()
         @Html.ValidationSummary("", new{})
-        @Html.HiddenFor(x=>Model.Id,new{})
+        @Html.HiddenFor(x=>x.FotoPath,new {})
+        @Html.HiddenFor(x=>x.Id,new {})
     </div>
     <div class="col-12">
         @Html.LabelFor(x=>x.Nombre, new{})
         @Html.TextBoxFor(x=>Model.Nombre,new{@class="form-control"})
         @Html.ValidationMessageFor(x=>Model.Nombre,"*",new{})
     </div>
+    <div class="col-1">
+        @Html.LabelFor(x=>Model.RGB,new {})
+        @Html.TextBoxFor(x=>Model.RGB, new {@type="color", @class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.RGB, "*", new {})
+    </div>
+    <div class="col-12">
+        @Html.LabelFor(x=>Model.Foto,new {})
+        @Html.TextBoxFor(x=>Model.Foto, new {@type="file", @class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Foto, "*", new {})
+    </div>
     <div class="col-12">
         <button class="btn btn-success">Guardar</button>
         <a href="/Tarea4/IndexTipo" class="btn btn-danger">Volver</a>
     </div>
 }
+

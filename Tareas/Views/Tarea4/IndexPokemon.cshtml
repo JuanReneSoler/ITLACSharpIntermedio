@@ -26,10 +26,27 @@
             foreach(var item in Model.ListaDatos)
             {
                 <tr>
-                    <td>@item.nombre</td>
-                    <td>@item.region</td>
-                    <td>@item.tipo</td>
-                    <td></td>
+                    <td>
+                        <img src="data:image/png;base64, @(item.FotoBase64)" width="50px" alt="Pokemon" />
+                        <a href="/Tarea4/DetailPokemon?id=@(item.Id)">@item.Nombre</a>
+                        
+                    </td>
+                    <td>
+                        @foreach (var item2 in item.Regiones)
+                        {
+                            <div style="height:15px;width:15px;background:@(item2.RGB);"></div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var item3 in item.Tipos)
+                        {
+                            <div style="height:15px;width:15px;background:@(item3.RGB);"></div>
+                        }
+                    </td>
+                    <td>
+                        <a href="/Tarea4/EditPokemon?id=@(item.Id)" class="btn btn-primary">Editar</a>
+                        <a href="/Tarea4/DeletePokemon?id=@(item.Id)" class="btn btn-danger">Eliminar</a>
+                    </td>
                 </tr>
             }
         }

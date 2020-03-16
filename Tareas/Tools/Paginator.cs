@@ -35,7 +35,6 @@ namespace Tareas.Tools
                     throw new System.Exception("Numenoro de paginas es imposible de calcular");
                 if(this.Content.Count() == 0)
                     return 1;
-                //var pages = this.LengthForPage % 2 == 0 ? this.Content.Count()/this.LengthForPage : (this.Content.Count()/this.LengthForPage) + 1; 
                 var pages = this.Content.Count()%this.LengthForPage > 0 ? (this.Content.Count()/this.LengthForPage) + 1 : this.Content.Count()/this.LengthForPage ;
                 return pages;
             }
@@ -46,7 +45,13 @@ namespace Tareas.Tools
 
         private TResult InvoqueConvert(T t)
         {
-            var convert = t.GetType().GetMethods().FirstOrDefault(x=>x.Name == "op_Explicit" && x.ReturnType == typeof(TResult));
+            var convert = t.GetType()
+                .GetMethods()
+                .FirstOrDefault(x=>
+                    x.Name == "op_Explicit" 
+                    && x.ReturnType == typeof(TResult)
+                    //&& x.GetGenericArguments().Any(y=>y.GetType() == typeof(t)))
+                );
             var tresult = (TResult)convert.Invoke(t, new object[]{t});
             return tresult;
         }

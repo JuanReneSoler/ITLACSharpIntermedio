@@ -1,0 +1,67 @@
+
+
+@model Tareas.Models.PokemonRequest
+
+<h3>Detalle Pokemon</h3>
+
+<div class="col-12 mb-3">
+        @Html.TextBoxFor(x=>Model.Nombre,new{@class="form-control", @readonly=""})
+    </div>
+    <div class="col-12 mb-3">
+        @* @Html.LabelFor(x=>Model.Foto,new{})
+        @Html.TextBoxFor(x=>Model.Foto,new{@type="file", @class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Foto, "" ,new{}) *@
+        <img src="data:image/png;base64, @(Model.FotoBase64)" alt="Pokemon(Not image)" />
+    </div>
+    @* <div class="col-12 mb-3">
+        @Html.LabelFor(x=>Model.RegionId,new{})
+        @Html.DropDownListFor(x=>Model.RegionId, ViewBag.Regiones as SelectList,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.RegionId, "" ,new{})
+    </div> *@
+    <div class="col-12 mb-3">
+        Regiones
+        <ul id="listRegiones">
+            @foreach (var item in Model.RegionesObj)
+            {
+                var type = item.GetType();
+                var nombre = type.GetProperty("Nombre").GetValue(item);
+                var RGB = type.GetProperty("RGB").GetValue(item);
+                <li>
+                    <label class="d-inline p-2">@nombre</label>
+                    <div class="d-inline p-2" style="height:15px;width:15px;background:@(RGB);"></div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-12 mb-3">
+        Tipos
+        <ul id="listTipos">
+            @foreach (var item in Model.TiposObj)
+            {
+                var type = item.GetType();
+                var nombre = type.GetProperty("Nombre").GetValue(item);
+                var RGB = type.GetProperty("RGB").GetValue(item);
+                <li>
+                    <label class="d-inline p-2">@nombre</label>
+                    <div class="d-inline p-2" style="height:15px;width:15px;background:@(RGB);"></div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-12">
+        Ataques
+        <ul id="listAtaque">
+            @foreach (var item in Model.AtaquesObj)
+            {
+                var type = item.GetType();
+                var nombre = type.GetProperty("Nombre").GetValue(item);
+                <li>
+                    @nombre
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-12 mb-3">
+        <a href="/Tarea4/IndexPokemon" class="btn btn-danger">Volver</a>
+    </div>
+

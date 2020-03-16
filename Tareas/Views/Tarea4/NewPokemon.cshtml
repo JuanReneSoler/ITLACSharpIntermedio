@@ -4,16 +4,22 @@
 
 <h3>Nuevo Pokemon</h3>
 
-@using(Html.BeginForm("NewPokemon", "Tarea4", FormMethod.Post, new { @class="form-row"}))
+@using(Html.BeginForm("NewPokemon", "Tarea4", FormMethod.Post, new { @class="form-row",@enctype="multipart/form-data"}))
 {
     <div class="col-12 mb-3">
         @Html.AntiForgeryToken()
         @Html.ValidationSummary("", new {})
+        @Html.HiddenFor(x=>x.Id, new {})
     </div>
     <div class="col-12 mb-3">
         @Html.LabelFor(x=>Model.Nombre,new{})
         @Html.TextBoxFor(x=>Model.Nombre,new{@class="form-control"})
         @Html.ValidationMessageFor(x=>Model.Nombre, "" ,new{})
+    </div>
+    <div class="col-12 mb-3">
+        @Html.LabelFor(x=>Model.Foto,new{})
+        @Html.TextBoxFor(x=>Model.Foto,new{@type="file", @class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Foto, "" ,new{})
     </div>
     @* <div class="col-12 mb-3">
         @Html.LabelFor(x=>Model.RegionId,new{})
@@ -47,7 +53,6 @@
                             <tbody>
                                 @if(listRegiones.Any())
                                 {
-                                    var c = 0;
                                     foreach(var item in listRegiones)
                                     {
                                         <tr>
@@ -56,7 +61,6 @@
                                                 <input value="" id="@item.Id" name="" type="checkbox" onclick="Binding(this, 'RegionesId', 'listRegiones', '@item.Nombre');">
                                             </td>
                                         </tr>
-                                        c++;
                                     }
                                 }   
                             </tbody>
@@ -98,16 +102,14 @@
                             <tbody>
                                 @if(listTipo.Any())
                                 {
-                                    var c = 0;
                                     foreach(var item in listTipo)
                                     {
                                         <tr>
                                             <td>@item.Nombre</td>
                                             <td>
-                                                <input value="@item.Id" id="@(c)" name="" type="checkbox" onclick="Binding(this, 'TiposId', 'listTipos', '@item.Nombre');">
+                                                <input value="" id="@item.Id" name="" type="checkbox" onclick="Binding(this, 'TiposId', 'listTipos', '@item.Nombre');">
                                             </td>
                                         </tr>
-                                        c++;
                                     }
                                 }   
                             </tbody>
@@ -124,7 +126,7 @@
         @Html.ValidationMessageFor(x=>Model.TiposId, "" ,new{})
     </div>
     <div class="col-12">
-        @Html.LabelFor(x=>Model.AtaquesId,new{})
+        @Html.LabelFor(x=>Model.Ataques,new{})
         <ul id="listAtaque"></ul>
         <button type="button" class="btn btn-info mb-3" onclick="$('#ataquesModal').modal('show')">Añadir Ataque</button>
         <div class="modal" tabindex="-1" role="dialog" id="ataquesModal">
@@ -139,7 +141,7 @@
                     <div class="modal-body">
                         <label for="">Añadir Ataque</label>                        
                         <input type="text" id="ataque" class="form-control mb-3">
-                        <button type="button" onclick="addAtaque('ataque', 'listAtaque', 'AtaquesId')" class="btn btn-secondary mb-2">Agregar Ataque</button>
+                        <button type="button" onclick="addAtaque('ataque', 'listAtaque', 'Ataques')" class="btn btn-secondary mb-2">Agregar Ataque</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -147,7 +149,7 @@
                 </div>
             </div>
         </div>
-        @Html.ValidationMessageFor(x=>Model.AtaquesId, "" ,new{})
+        @Html.ValidationMessageFor(x=>Model.Ataques, "" ,new{})
     </div>
     <div class="col-12 mb-3">
         <button class="btn btn-success">Guardar</button>

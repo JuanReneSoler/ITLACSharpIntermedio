@@ -2,7 +2,7 @@
 
 @model Tareas.Models.TipoListResponse
 <h3>Nuevo Tipo</h3>
-@using(Html.BeginForm("NewTipo", "Tarea4", FormMethod.Post, new{@class="form-row"}))
+@using(Html.BeginForm("NewTipo", "Tarea4", FormMethod.Post, new{@class="form-row", @enctype="multipart/form-data"}))
 {
     <div class="col-12">
         @Html.AntiForgeryToken()
@@ -12,6 +12,16 @@
         @Html.LabelFor(x=>x.Nombre, new{})
         @Html.TextBoxFor(x=>Model.Nombre,new{@class="form-control"})
         @Html.ValidationMessageFor(x=>Model.Nombre,"*",new{})
+    </div>
+    <div class="col-1">
+        @Html.LabelFor(x=>Model.RGB,new {})
+        @Html.TextBoxFor(x=>Model.RGB, new {@type="color", @class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.RGB, "*", new {})
+    </div>
+    <div class="col-12">
+        @Html.LabelFor(x=>Model.Foto,new {})
+        @Html.TextBoxFor(x=>Model.Foto, new {@type="file", @class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Foto, "*", new {})
     </div>
     <div class="col-12">
         <button class="btn btn-success">Guardar</button>
