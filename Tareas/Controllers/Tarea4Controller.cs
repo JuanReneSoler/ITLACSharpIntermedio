@@ -85,13 +85,6 @@ namespace Tareas.Controllers
             var regiones = this.context.RegionPokemon.Where(x=>x.PokemonId == id);
             var tipos = this.context.TipoPokemon.Where(x=>x.PokemonId == id);
             var atakes = this.context.Ataques.Where(x=>x.PokemonId == id);
-            if(
-                regiones.Count()< 1
-                && tipos.Count()< 1
-                && atakes.Count()< 1
-            )
-                throw new System.Exception("El pokemon no puede ser borrado");
-
             this.context.Ataques.RemoveRange(atakes);
             this.context.TipoPokemon.RemoveRange(tipos);
             this.context.RegionPokemon.RemoveRange(regiones);
@@ -113,6 +106,9 @@ namespace Tareas.Controllers
 
         public IActionResult IndexRegion(int page = 1, int length = 10)
         {
+            if(Request.Query["key"].ToString() != null)
+                ModelState.AddModelError(Request.Query["key"].ToString(), Request.Query["error"].ToString());
+
             var model = new Paginator<Region, RegionesListResponse>(this.context.Region,page, length, nameof(this.IndexRegion), "Tarea4");
             return View(model.Pagination);
         }
@@ -151,8 +147,8 @@ namespace Tareas.Controllers
 
         public async Task<IActionResult> DeleteRegion(int id)
         {
-            if(this.context.Region.Count(x=>x.Id == id) < 1)
-                throw new System.Exception("El tipo no puede ser borrado.");
+            if(this.context.RegionPokemon.Any(x=>x.RegionId == id))
+                return RedirectToAction(nameof(this.IndexRegion), new {key = "NotCreate", error = "La region no puede ser borrada, por que algun pokemon la usa."});
 
             var entity = await this.context.Region.FirstOrDefaultAsync(x=>x.Id == id);
             if(this.context.RegionPokemon.Any(x=>x.RegionId == id))
@@ -174,6 +170,9 @@ namespace Tareas.Controllers
 
         public IActionResult IndexTipo(int page = 1, int length = 10)
         {
+            if(Request.Query["key"].ToString() != null)
+                ModelState.AddModelError(Request.Query["key"].ToString(), Request.Query["error"].ToString());
+
             var paginator = new Paginator<Tipo, TipoListResponse>(this.context.Tipo, page, length, nameof(this.IndexTipo), "Tarea4");
             return View(paginator.Pagination);
         }
@@ -212,9 +211,8 @@ namespace Tareas.Controllers
 
         public async Task<IActionResult> DeleteTipo(int id)
         {
-            var p = this.context.Tipo.Count(x=>x.Id == id);
-            if(this.context.Tipo.Count(x=>x.Id == id)<1)
-                throw new System.Exception("El tipo no puede ser borrado");
+            if(this.context.TipoPokemon.Any(x=>x.TipoId == id))
+                return RedirectToAction(nameof(this.IndexTipo), new {key = "NotCreate", error = "El tipo no puede ser borrado, porque algun pokemon la usa."});
             
             var entity = await this.context.Tipo.FirstOrDefaultAsync(x=>x.Id == id);
             if(this.context.TipoPokemon.Any(x=> x.TipoId == id))
