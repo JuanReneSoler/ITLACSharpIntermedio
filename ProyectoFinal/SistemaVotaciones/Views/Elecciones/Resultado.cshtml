@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "~/Views/Shared/ResultadoLayout.cshtml";
+}
+@using Models.Dtos;
+@model IEnumerable<ResultadoResponse>
+
+@foreach (var item in Model)
+{
+    <b>@item.PuestoName</b>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Votos</th>
+                <th>Porcentaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                var porciento = 100/item.Candidatos.Sum(x => x.Votos);
+            }
+            @foreach (var item2 in item.Candidatos)
+            {
+                <tr>
+                    <td>@item2.NombreCompleto</td>
+                    <td>@item2.Votos</td>
+                    <td>
+                        @{ 
+                            var porcentaje = item2.Votos * porciento;
+                        }
+                        @porcentaje%
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

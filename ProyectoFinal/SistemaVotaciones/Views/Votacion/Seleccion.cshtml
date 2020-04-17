@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Models.Dtos.CandidatosListResponse>
+@{
+    ViewData["Title"] = "Seleccion";
+    Layout = "Votantes";
+}
+
+
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <form class="col-md-4 text-center" method="post" action="/Votacion/AddCandidato">
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.Id)
+                    @Html.Hidden("candidato", item.NombreCompleto)
+                    @Html.Hidden("partido", item.Partido)
+                    @Html.Hidden("puestoName", ViewBag.Puesto as string)
+                    <button class="btn">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="data:image/png;base64, @(item.Foto)" height="300px" alt="img name" />
+                            <div class="card-body">
+                                <img src="data:image/png;base64, @(item.PartidoFoto)" height="75px" alt="Alternate Text" class="d-flex float-left" />
+                                <p class="card-text"><h4>@item.NombreCompleto (@item.Partido)</h4></p>
+                                <b>@item.Puesto</b>
+                                @* <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                        <small class="text-muted">9 mins</small>
+                                    </div> *@
+                            </div>
+                        </div>
+                    </button>
+
+                </form>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        $("form").submit(function (event) {
+            event.preventDefault();
+            if (confirm("Esta seguro de su seleccion!\nUna vez aceptada no podra cambiarla.\nPreciones Aceptar para continuar.")) {
+                this.submit();
+            }
+        });
+    </script>
+
+}
+

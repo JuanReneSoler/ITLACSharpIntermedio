@@ -1,0 +1,36 @@
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@model Models.Dtos.CiudadanoRequest
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            @Html.LabelFor(x=>Model.Nombre, new {})
+            @Html.TextBoxFor(x=>Model.Nombre,new{@class="form-control", @readonly=""})
+        </div>
+        <div class="col-md-12 mb-3">
+            @Html.LabelFor(x=>Model.Apellido, new{})
+            @Html.TextBoxFor(x=>Model.Apellido,new{@class="form-control", @readonly=""})
+        </div>
+        <div class="col-md-6 mb-3">
+            @Html.LabelFor(x=>Model.DocIdentidad, new {})
+            @Html.TextBoxFor(x=>Model.DocIdentidad,new{@class="form-control", @readonly=""})
+        </div>
+        <div class="col-md-6 mb-3">
+            @Html.LabelFor(x=>Model.Email,new{})
+            @Html.TextBoxFor(x=>Model.Email,new{@class="form-control", @readonly=""})
+        </div>
+        @*<div class="col-md-12- mb-3">
+            <div class="custom-control custom-switch">
+                @{
+                    var val = Model.estado?"Activo":"Inactivo";
+                }
+                <label>Estado: <b>@val</b></label>
+            </div>
+        </div>*@
+        <div class="col-md-12">
+            <a href="/ciudadano/index" class="btn btn-danger">Volver</a>
+        </div>
+    </div>
+</div>

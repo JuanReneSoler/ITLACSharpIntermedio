@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Tools;
+
+@model IEnumerable<Models.Dtos.AdministradoresListResponse>
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+
+
+<ul class="list-group">
+    <li class="list-group-item d-flex bg-dark text-white">
+        @if(Model.Any())
+        {
+            foreach(var item in Model)
+            {
+                <a class="btn btn-link"><b></b> @item.UserName</a>
+                <a class="btn btn-link">(@item.Email)</a>
+                <div class="d-flex justify-content-end">
+                    <form method="POST" action="/Account/ChangeEstado/@(item.Id)">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-primary">
+                            @{
+                                var text = item.Estado=="Activo"?"Desactivar":"Activar";
+                            }
+                            @text
+                        </button>
+                    </form>
+                    @if(item.Estado=="Activo")
+                    {
+                        <a href="/Account/Edit/@(item.Id)" class="btn btn-success">Editar</a>
+                    }
+                    else
+                    {
+                        <a class="d-flex justify-content-end btn">Locked</a>
+                    }
+                </div>
+                
+            }
+        }
+    </li>
+</ul>

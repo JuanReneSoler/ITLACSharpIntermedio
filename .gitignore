@@ -1,3 +1,21 @@
-/Tareas/bin
-Tareas/obj
 .vscode/
+.vs/
+
+/Tareas/bin/
+/Tareas/obj/
+
+
+#Proyecto Final
+
+ProyectoFinal/SistemaVotaciones/bin/
+ProyectoFinal/SistemaVotaciones/obj/
+ProyectoFinal/Persistence/bin/
+ProyectoFinal/Persistence/obj/
+ProyectoFinal/Models/bin/
+ProyectoFinal/Models/obj/
+ProyectoFinal/Core/bin/
+ProyectoFinal/Core/obj/
+ProyectoFinal/UserManager/obj/
+ProyectoFinal/UserManager/bin/
+ProyectoFinal/Tools/bin/
+ProyectoFinal/Tools/obj/

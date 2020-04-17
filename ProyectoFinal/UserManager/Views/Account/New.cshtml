@@ -1,0 +1,33 @@
+@model Models.Dtos.AdministradoresRequest
+
+@using(Html.BeginForm("New", "Home", FormMethod.Post, new{@class="form-row"})){
+    <div class="col-md-12">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new {@class="was-validated"})
+        @*@Html.HiddenFor(x=>Model.id,new{})*@
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(x=>Model.Email,new{})
+        @Html.TextBoxFor(x=>Model.Email,new{@class="form-control"})
+        @Html.ValidationMessageFor(x=>Model.Email, "*", new {})
+    </div>
+    <div class="col-md-12 mb-3">
+        @Html.LabelFor(x=>Model.UserName,new{})
+        @Html.TextBoxFor(x=>Model.UserName,new{@class="form-control col-6"})
+        @Html.ValidationMessageFor(x=>Model.UserName, "*", new {})
+    </div>
+    <div class="col-md-12">
+        @Html.LabelFor(x=>Model.Password,new{})
+        @Html.TextBoxFor(x=>Model.Password,new{@class="form-control col-6", @type="password"})
+        @Html.ValidationMessageFor(x=>Model.Password, "*", new {})
+    </div>
+    <div class="col-md-12">
+        @Html.LabelFor(x=>Model.ConfirmPassword,new{})
+        @Html.TextBoxFor(x=>Model.ConfirmPassword,new{@class="form-control col-6", @type="password"})
+        @Html.ValidationMessageFor(x=>Model.ConfirmPassword, "*", new {})
+    </div>
+    <div class="col-md-12">
+        <a href="/Account/Index" class="btn btn-danger">Cancelar</a>
+        <button class="btn btn-success">Guardar</button>
+    </div>
+}

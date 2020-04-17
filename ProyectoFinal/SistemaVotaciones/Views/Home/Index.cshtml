@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+
+<style>
+            .form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+        </style>
+@using Models.Dtos;
+@model VotacionLogIn
+<form class="form-signin text-center" method="POST" action="/Account/LogInVotantes">
+    @Html.AntiForgeryToken()
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="inputPassword2" class="sr-only">Password</label>
+        @* <input id="cedula" type="text" class="form-control" id="inputPassword2" placeholder="Digite su Cedula"> *@
+        @Html.TextBoxFor(x => x.Cedula, new { @class = "form-control", @placeholder = "Digite su cedula" })
+    </div>
+    @Html.ValidationSummary("", new { })
+    <button type="submit" class="btn btn-primary mb-2">Acceder</button>
+</form>
+@section Scripts
+{
+    <script>
+        $(function(){
+            $('#Cedula').mask('000-0000000-0');
+        });
+    </script>
+}

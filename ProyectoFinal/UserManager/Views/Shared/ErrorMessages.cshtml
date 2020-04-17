@@ -1,0 +1,11 @@
+
+
+@if(ViewData["Message"] != null && ViewData["Message"].ToString() != string.Empty)
+{
+    var alert = "alert-danger";
+    <div class="alert @(alert)" role="alert">
+        @ViewData["Message"]
+    </div>
+}
+
+    

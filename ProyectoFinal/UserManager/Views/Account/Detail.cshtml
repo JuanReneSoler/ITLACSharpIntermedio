@@ -1,0 +1,26 @@
+﻿
+
+@model Models.Dtos.AdministradoresRequest
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            @Html.LabelFor(x => Model.Email, new { })
+            @Html.TextBoxFor(x => Model.Email, new { @class = "form-control", @readonly="" })
+        </div>
+        <div class="col-md-12 mb-3">
+            @Html.LabelFor(x => Model.UserName, new { })
+            @Html.TextBoxFor(x => Model.UserName, new { @class = "form-control col-6", @readonly="" })
+        </div>
+        @*<div class="col-md-12">
+            @Html.LabelFor(x => Model.password, new { })
+            @Html.TextBoxFor(x => Model.password, new { @class = "form-control col-6", @type = "password" })
+        </div>
+        <div class="col-md-12">
+            @Html.LabelFor(x => Model.confirmPassword, new { })
+            @Html.TextBoxFor(x => Model.confirmPassword, new { @class = "form-control col-6", @type = "password" })
+        </div>*@
+        <div class="col-md-12">
+            <a href="/Account/Index" class="btn btn-danger">Cancelar</a>
+        </div>
+    </div>
+

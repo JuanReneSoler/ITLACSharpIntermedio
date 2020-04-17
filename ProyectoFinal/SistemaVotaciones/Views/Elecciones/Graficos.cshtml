@@ -1,0 +1,181 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@model IEnumerable<Models.Dtos.EleccionesListResponse>
+
+<div class="form-group">
+    <h3 class="mb-3"><b>Selecciones Una eleccion</b></h3>
+    <select id="elecciones" class="form-control">
+        <option value="0" selected disabled>Seleccione una eleccion</option>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <option value="@item.Id">@item.Nombre</option>
+            }
+        }
+    </select>
+
+    <h3 class="mb-3"><b>Selecciones Un puesto</b></h3>
+    <select class="form-control" id="puestos"></select>
+
+    <h3 class="mb-3"><b>Seleccione tipo de grafico</b></h3>
+    <select id="tipo" class="form-control">
+        <option value="1">Pie</option>
+        <option value="2">Barra</option>
+    </select>
+
+    <button id="generarGrafico" class="btn btn-info mb-3">Generar Grafico</button>
+</div>
+<div id="logos" style="visibility:hidden;">Sistema Votaciones Graficos</div>
+<div id="charts"></div>
+
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+
+        var columnModel = {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            xAxis: {
+                categories: [],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                //headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                //pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                //    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                //footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: []
+        };
+
+        var pieModel = {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: []
+            }]
+        }
+
+        $(document).ready(function () {
+            $("#elecciones").change(function () {
+                let eleccionId = $(this).val();
+                $.get("/Elecciones/Puestos?id=" + eleccionId)
+                    .done(function (result) {
+                        $("#puestos").html("");
+                        result.forEach(function (item, i) {
+                            $("#puestos").append("<option value='" + item + "'>" + item + "</option>");
+                        });
+                    })
+                    .fail();
+            });
+
+
+            $("#generarGrafico").click(function () {
+                let eleccionId = $("#elecciones").val();
+                let puesto = $("#puestos").val();
+                let tipo = $("#tipo").val();
+                RenderGraficos(eleccionId, puesto, tipo);
+            });
+        });
+
+        function RenderGraficos(eleccionId, puesto, tipo) {
+
+            let url = tipo == 1 ? "/Elecciones/ChartPie?id=" + eleccionId + "&puesto=" + puesto : "/Elecciones/ChartBarra?id=" + eleccionId + "&puesto=" + puesto;
+
+            $.get(url)
+                .done(function (result) {
+
+                    let guid = Math.floor(Math.random() * 10000).toString();
+
+                    let html = `
+<div>
+        <button class="btn btn-dark d-flex float-right" onclick="$(this).parent().remove()" type="button">borrar</button>
+        <div id="`+ guid + `"></div>
+<div>`;
+
+                    $("#charts").append(html);
+
+                    let model = tipo == 2 ? columnModel : pieModel;
+
+                    model.title.text = result.xAxis;
+                    model.subtitle.text = $("#elecciones option:selected").text();
+
+                    if (tipo == 1)
+                        model.series[0].data = result.series;
+                    else
+                        model.series = result.series;
+
+                    Highcharts.chart(guid, model);
+                })
+                .fail(function (error) {
+                    alert(error.statusText);
+                });
+        }
+    </script>
+
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@using Tools;
+@model IEnumerable<Models.Dtos.CandidatosListResponse>
+
+@Html.ValidationSummary("", new { })
+
+<a class="btn btn-success" href='/Candidatos/New?eleccionId=@(ViewData["LastActivatedId"])'>Nuevo Candidato</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>Nombre y Apellido</th>
+            <th>Cargo</th>
+            <th>Partido</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img style="width:50px;" src="data:image/png;base64, @(item.Foto)" alt="">
+                    </td>
+                    <td>
+                        <a href="/Candidatos/Detail?id=@(item.Id)">@item.NombreCompleto</a>
+                    </td>
+                    <td>@item.Puesto</td>
+                    <td>@item.Partido</td>
+                    <td>
+                        <a href="/Candidatos/ChangeEstado?id=@(item.Id)" class="btn btn-info">
+                            @{
+                                var val = item.Estado == "Activo" ? "Desactivar" : "Activar";
+                            }
+                            @val
+                        </a>
+                        <a href="/Candidatos/Edit?id=@(item.Id)&eleccionId=@(ViewData["LastActivatedId"])" class="btn btn-primary">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="5">Ho hay datos para mostrar</td></tr>
+        }
+    </tbody>
+</table>
+
+
+@{
+    Html.RenderPartial("~/Views/Shared/Pagination.cshtml", ViewBag.Pagination as SistemaVotaciones.Models.PaginationDto);
+}

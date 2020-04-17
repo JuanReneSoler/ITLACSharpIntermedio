@@ -1,0 +1,49 @@
+
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@using Tools;
+@model IEnumerable<Models.Dtos.PuestosListResponse>
+
+@Html.ValidationSummary("", new { })
+
+<a href="/Puestos/New" class="btn btn-success">Nuevo Puesto</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="/Puestos/Detail?id=@(item.Id)">@item.Nombre</a>
+                    </td>
+                    <td>
+                        <a href="/Puestos/ChangeEstado?id=@(item.Id)" class="btn btn-info">
+                            @{
+                                var val = item.Estado == "Activo" ? "Desactivar" : "Activar";
+                            }
+                            @val
+                        </a>
+                        <a href="/Puestos/Edit?id=@(item.Id)" class="btn btn-primary">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="3">No hay elementos para mostrar</td></tr>
+        }
+    </tbody>
+</table>
+
+@{
+    Html.RenderPartial("~/Views/Shared/Pagination.cshtml", ViewBag.Pagination as PaginationDto);
+}
+

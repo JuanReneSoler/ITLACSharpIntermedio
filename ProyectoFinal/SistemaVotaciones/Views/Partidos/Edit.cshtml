@@ -1,0 +1,56 @@
+
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@model Models.Dtos.PartidoRequest
+
+@using(Html.BeginForm("Edit", "Partidos", FormMethod.Post, new { @class="form-row",@enctype="multipart/form-data"}))
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary("", new {@class="was-validated"})
+    @Html.HiddenFor(x=>Model.Id,new{})
+    @Html.HiddenFor(x=>x.OldPath,new{})
+    <div class="col-md-12 mb-3">
+        @Html.LabelFor(x=>Model.Nombre, new {})
+        @Html.TextBoxFor(x=>Model.Nombre, new {@class="form-control", @required=""})
+        @Html.ValidationMessageFor(x=>Model.Nombre, "*", new {@class="valid-feedback"})
+    </div>
+    <div class="col-md-12 mb-3">
+        @Html.LabelFor(x=>Model.Descripcion, new{})
+        @Html.TextAreaFor(x=>Model.Descripcion, new{@class="form-control", @required=""})
+        @Html.ValidationMessageFor(x=>Model.Descripcion,"*", new{@class="valid-feedback"})
+    </div>
+    <div class="col-md-6 mb-3">
+        @* @Html.LabelFor(x=>Model.docIdentidad, new {})
+        @Html.TextBoxFor(x=>Model.docIdentidad,new{@class="form-control", @required=""})
+        @Html.ValidationMessageFor(x=>Model.docIdentidad,"*", new {@class="valid-feedback"}) *@
+        <label>Logo del Partido</label>
+        @Html.TextBoxFor(x=>Model.Logo,new{@class="form-control btn btn-success", @type="file"})
+        @Html.LabelFor(x=>Model.Logo,new{})
+    </div>
+    @if(Model != null && Model.LogoBase64 != null)
+    {
+        @Html.HiddenFor(x=>Model.LogoBase64,new{})
+        <div class="col-md-2">
+            <label>Logo Actual</label>
+            <img style="width:50px;" src="data:image/png;base64, @(Model.LogoBase64)" alt="">
+        </div>
+    }
+    @*<div class="col-md-12 mb-3">
+        <div class="custom-control custom-switch">
+            @if(Model.estado)
+            {
+                @Html.TextBoxFor(x=>Model.estado,new{@type="checkbox",@class="custom-control-input", @Value="True", @checked=""})
+            }
+            else{
+                @Html.TextBoxFor(x=>Model.estado,new{@type="checkbox",@class="custom-control-input", @Value="False"})
+            }
+            
+            @Html.LabelFor(x=>Model.estado,new{@class="custom-control-label"})
+        </div>
+    </div>*@
+    <div class="col-md-12 mb-3">
+        <a href="/Partidos/index" class="btn btn-danger">Volver</a>
+        <button class="btn btn-success">Guardar</button>
+    </div>
+}

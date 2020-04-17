@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Pagination";
+}
+
+@model SistemaVotaciones.Models.PaginationDto
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(!Model.HasPrevius?"disabled":"")">
+            <a class="page-link" href="@($"/{Model.Controller}/{Model.Action}?page={Model.CurrentPage-1}")" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        @for (var c = 1; c <= Model.Pages; c++)
+        {
+            <li class="page-item @(c == Model.CurrentPage ? "active" : "")"><a class="page-link" href="@($"/{Model.Controller}/{Model.Action}?page={c}")">@(c)</a></li>
+        }
+        <li class="page-item @(!Model.HasNext?"disabled":"")">
+            <a class="page-link" href="@($"/{Model.Controller}/{Model.Action}?page={Model.CurrentPage+1}")">Next</a>
+        </li>
+    </ul>
+</nav>

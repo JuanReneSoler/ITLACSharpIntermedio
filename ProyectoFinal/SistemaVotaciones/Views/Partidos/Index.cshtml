@@ -1,0 +1,55 @@
+
+
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@using Tools;
+@model IEnumerable<Models.Dtos.PartidosListResponse>
+
+@Html.ValidationSummary("", new { })
+
+<a href="/Partidos/New" class="btn btn-primary">Nuevo</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Logo</th>
+            <th scope="col">Nombre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img style="width:50px;" src="data:image/png;base64, @(item.Logo)" alt="">
+
+                    </td>
+                    <td>
+                        <a href="/Partidos/Detail?id=@(item.Id)">
+                            @item.Nombre
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/Partidos/ChangeEstado?id=@(item.Id)" class="btn btn-info">
+                            @{
+                                var val = item.Estado == "Activo" ? "Desactivar" : "Activar";
+                            }
+                            @val
+                        </a>
+                        <a href="/Partidos/Edit?id=@(item.Id)" class="btn btn-primary">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td>No hay datos para mostar.</td></tr>
+        }
+    </tbody>
+</table>
+@{
+    Html.RenderPartial("~/Views/Shared/Pagination.cshtml", ViewBag.Pagination as PaginationDto);
+}

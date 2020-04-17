@@ -1,0 +1,52 @@
+
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@using Tools
+@model IEnumerable<Models.Dtos.CiudadanoListResponse>
+
+
+@Html.ValidationSummary("", new { })
+
+<a href="/ciudadano/new" class="btn btn-primary">Nuevo</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="/ciudadano/detail?id=@(item.Id)">@item.Nombre</a>
+                    </td>
+                    <td>@item.Apellido</td>
+                    <td>
+                        <a class="btn btn-info" href="/ciudadano/ChangeEstado?id=@(item.Id)">
+                            @{
+                                var val = item.Estado == "Activo" ? "Desactivar" : "Activar";
+                            }
+                            @val
+                        </a>
+                        <a class="btn btn-primary" href="/ciudadano/Edit?id=@(item.Id)">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td>No hay datos para mostar.</td></tr>
+        }
+    </tbody>
+</table>
+
+@{
+    Html.RenderPartial("~/Views/Shared/Pagination.cshtml", ViewBag.Pagination as SistemaVotaciones.Models.PaginationDto);
+}

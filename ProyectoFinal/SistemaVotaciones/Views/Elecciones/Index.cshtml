@@ -1,0 +1,68 @@
+
+
+@{
+    Layout = "~/Views/Shared/Administrador.cshtml";
+}
+@using Tools;
+@model IEnumerable<Models.Dtos.EleccionesListResponse>
+
+@Html.ValidationSummary("", new { })
+<a href="/Elecciones/New" class="btn btn-success">Nuevo</a>
+<a class="btn btn-warning d-flex float-right" href="/Elecciones/Graficos">Graficos</a>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Resultados en Estadisticas </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="/Elecciones/Detail?id=@(item.Id)">
+                            @item.Nombre
+                        </a>
+                    </td>
+                    <td>
+                        @item.Fecha
+                    </td>
+                    <td>
+                        @item.EstadoDescripcion
+                    </td>
+                    <td>
+                        @if (item.Estado == (int)Core.EstadosEleccionesEnum.Creada)
+                        {
+                            <a href="/Elecciones/IniciarVotaciones?id=@(item.Id)" class="btn btn-primary">Inciar Proceso Votacion</a>
+                            <a href="/Elecciones/Edit?id=@(item.Id)" class="btn btn-primary">Editar</a>
+                        }
+                        @if (item.Estado == (int)Core.EstadosEleccionesEnum.EnVotacion)
+                        {
+                            <a href="/Elecciones/CerrarElecciones?id=@(item.Id)" class="btn btn-info">Cerrar</a>
+                        }
+                        @if (item.Estado == (int)Core.EstadosEleccionesEnum.Cerrada)
+                        {
+                            <a class="btn btn-dark" target="_blank" href="/Elecciones/Resultado?id=@(item.Id)">resultado</a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <th colspan="4">No hay datos para mostrar</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    Html.RenderPartial("~/Views/Shared/Pagination.cshtml", ViewBag.Pagination as SistemaVotaciones.Models.PaginationDto);
+}
+

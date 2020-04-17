@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> userManager;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SistemaVotaciones</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+            <div class="container">
+                <a class="navbar-brand">
+                    <img class="mb-4" src=" data:image/png;base64,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" alt="" width="40" height="40">
+                    SistemaVotaciones
+                </a>
+                @* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> *@
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav d-flex justify-content-end">
+                        @* <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li> *@
+                        <li class="nav-item">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - SistemaVotaciones -
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+</body>
+</html>
+
+

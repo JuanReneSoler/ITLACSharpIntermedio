@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "Votantes";
+}
+
+@model IEnumerable<Models.Dtos.PuestosListResponse>
+
+@{
+    ViewBag.Title = "Nueva Elecciond de Votacion";
+}
+
+<main role="main">
+
+    @* <section class="jumbotron text-center">
+          <div class="container">
+            <h1>Album example</h1>
+            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+            <p>
+              <a href="#" class="btn btn-primary my-2">Main call to action</a>
+              <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+            </p>
+          </div>
+        </section> *@
+    @Html.ValidationSummary("", new { })
+    <div class="d-flex justify-content-center text-center mb-5">
+        <div class="list-group d-flex justify-content-center row">
+            @foreach (var item in Model)
+            {
+                <form class="col-6" method="post" action="/Votacion/Seleccion">
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("puesto",item.Id)
+                    @Html.Hidden("puestoName", item.Nombre)
+                    <button class="list-group-item">@item.Nombre</button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="btn btn-group d-flex justify-content-center text-center mb-5">
+        <form class="col-3" method="post" action="/Votacion/SaveVotacion">
+            @Html.AntiForgeryToken()
+            <button class="btn btn-success">Finalizar votacion</button>
+        </form>
+    </div>
+
+</main>

@@ -1,0 +1,1 @@
+dotnet run --project .\UserManager\UserManager.csproj
